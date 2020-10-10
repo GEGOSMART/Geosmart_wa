@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from "react-redux";
 
 const SignupPage = ({user}) => {
-  console.log(user.getState())
+  console.log(user)
   return (
     <Fragment>
       Signup

@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { URL } from "../data/server";
+import {type as loginUserType} from "../actions/loginUser"
 
 const defaultState = null;
 
 function reducer(state = defaultState, action) {
   switch(action.type) {
-    case "loginUser": {
+    case loginUserType: {
       console.log(action)
        return state = login(action.payload.username, action.payload.password)
     }

@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Copyright from '../components/Footer/Copyright';
+import loginUser from '../redux/actions/loginUser';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -144,15 +145,7 @@ const mapStateToProps = (state) => { //get user in the store
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loginUser(username, password) {
-    dispatch({
-      type: "loginUser",
-      payload: {
-        username,
-        password
-      }
-    })
-  }
+  loginUser: (username, password) => dispatch(loginUser(username, password))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
