@@ -1,43 +1,44 @@
 import axios from 'axios';
 import { URL } from "../data/server";
 
-const defaultState = login();
+const defaultState = null;
 
-function reducer(state = defaultState, { type, payload }) {
-  switch(type) {
-    case 'loginUser': {
-       return login(payload.username, payload.password)
+function reducer(state = defaultState, action) {
+  switch(action.type) {
+    case "loginUser": {
+      console.log(action)
+       return state = login(action.payload.username, action.payload.password)
     }
     default:
       return state;
   };
 };
 
-async function login() {
-  await axios.post(URL, {
+async function login(username, password) {
+  const r = await axios.post(URL, {
     query: `
-      query {
-        allUsers {
+      mutation {
+        loginUser(user: {
+          username: "${username}"
+          password: "${password}"
+        }) {
           _id
           firstname
           lastname
           username
-          password
           country
           profile_picture
           created_at
+          token
         }
       }
       `
     }
-  )
-  .then(res => {
-    return res.data;
-  })
-  .catch(err => {
-    console.error(err.data)
-  })
+  ).catch(err => {
+    console.error(err)
+  });
 
+  return r.data;
 }
 
 export default reducer;

@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore,  combineReducers } from 'redux';
 import user from './reducers/user';
 
 const reducer =  combineReducers({
@@ -6,5 +6,7 @@ const reducer =  combineReducers({
 });
 
 const store = createStore(reducer);
+
+console.log(store.getState())
 
 export default store;

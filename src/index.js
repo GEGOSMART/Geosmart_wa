@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 // views
-import Login from './views/Login/LoginIndex';
-import Signup from './views/Signup/SignupIndex';
+import Login from './views/LoginPage';
+import Signup from './views/SignupPage';
 // redux store
 import store from  './redux/store'
 
