@@ -16,7 +16,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Copyright from '../components/Footer/Copyright';
+import Copyright from '../components/footer/Copyright';
 import loginUser from '../redux/actions/loginUser';
 
 const useStyles = makeStyles((theme) => ({
