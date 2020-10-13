@@ -8,38 +8,12 @@ function reducer(state = defaultState, action) {
   switch(action.type) {
     case loginUserType: {
       console.log(action)
-       return state = login(action.payload.username, action.payload.password)
+      //return state = login(action.payload.username, action.payload.password)
+      return state = action.payload.user_object; //se establece en el estado el objeto del user ya logeado
     }
     default:
       return state;
   };
 };
-
-async function login(username, password) {
-  const r = await axios.post(URL, {
-    query: `
-      mutation {
-        loginUser(user: {
-          username: "${username}"
-          password: "${password}"
-        }) {
-          _id
-          firstname
-          lastname
-          username
-          country
-          profile_picture
-          created_at
-          token
-        }
-      }
-      `
-    }
-  ).catch(err => {
-    console.error(err)
-  });
-
-  return r.data;
-}
 
 export default reducer;

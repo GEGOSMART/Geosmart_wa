@@ -8,6 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { useHistory } from "react-router-dom";
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -16,8 +17,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Copyright from '../components/footer/Copyright';
+import Copyright from '../components/Footer/Copyright';
 import loginUser from '../redux/actions/loginUser';
+
+import axios from 'axios';
+import { URL } from "../redux/data/server";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,13 +58,38 @@ const LoginPage = ({ user, loginUser }) => {
   console.log(user);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const history = useHistory();
   const classes = useStyles();
 
-  function handleSubmit(event) {
-    
-    loginUser(username, password);
+  async function handleSubmit(event) {
     event.preventDefault();
+    //loggear al usuario
+    try{
+      const user_object = await axios.post(URL, {
+        query: `
+          mutation {
+            loginUser(user: {
+              username: "${username}"
+              password: "${password}"
+            }) {
+              _id
+              firstname
+              lastname
+              username
+              country
+              profile_picture
+              created_at
+              token
+            }
+          }
+          `
+        })
+      loginUser(user_object);
+   }
+   catch(err){
+     console.log(err)
+   }
+
   }
 
   return (
@@ -127,6 +156,7 @@ const LoginPage = ({ user, loginUser }) => {
                   </Link>
                 </Grid>
               </Grid>
+              <a onClick={()=>history.push('/games')}>go to games (test)</a>
               <Box mt={5}>
                 <Copyright />
               </Box>
@@ -138,14 +168,14 @@ const LoginPage = ({ user, loginUser }) => {
   );
 };
 
-const mapStateToProps = (state) => { //get user in the store 
+const mapStateToProps = (state) => { //get user in the store
   return {
     user: state.user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loginUser: (username, password) => dispatch(loginUser(username, password))
+  loginUser: (user) => dispatch(loginUser(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

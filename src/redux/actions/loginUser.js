@@ -1,12 +1,14 @@
-export const type = 'loginUser';
+import axios from 'axios';
+import { URL } from "../data/server";
 
-const loginUser = (username, password) => {
+
+export const type = 'loginUser';
+const loginUser = (user_object) => {
   return {
     type,
     payload: {
-      username,
-      password
-    }, 
+      user_object
+    },
   };
 };
 
