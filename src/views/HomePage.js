@@ -34,11 +34,12 @@ const useStyles = makeStyles((theme) => ({
     background: 'blue',
     'textAlign': 'center',
     'borderRadius': '5px',
-    'marginTop': '10px'
+    'marginTop': '220px'
   },
   center: {
     display: 'center',
     justifyContent: 'center',
+    'marginLeft': '700px',
     width: '250px'
   },
 }));
