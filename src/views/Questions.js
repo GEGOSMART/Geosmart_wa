@@ -25,10 +25,10 @@ class Questions extends React.Component {
           _id: "someid",
           statement: "¿A que lugar pertenece esta bandera?",
           image: "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Flag_of_Brazil.svg/1200px-Flag_of_Brazil.svg.png",
-          opcionA: "Colombia",
-          opcionB: "Brasil",
-          opcionC: "Ecuador",
-          opcionD: "Perú",
+          optionA: "Colombia",
+          optionB: "Brasil",
+          optionC: "Ecuador",
+          optionD: "Perú",
           ans: "Brasil",
           category: "flags",
           continent: "America",
@@ -39,10 +39,10 @@ class Questions extends React.Component {
           _id: "someid",
           statement: "¿A que lugar pertenece esta bandera?",
           image: "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Peru_%28state%29.svg",
-          opcionA: "Colombia",
-          opcionB: "Brasil",
-          opcionC: "Ecuador",
-          opcionD: "Perú",
+          optionA: "Colombia",
+          optionB: "Brasil",
+          optionC: "Ecuador",
+          optionD: "Perú",
           ans: "Perú",
           category: "flags",
           continent: "America",
@@ -53,10 +53,10 @@ class Questions extends React.Component {
         _id: "someid",
         statement: "¿A que lugar pertenece esta bandera?",
         image: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Flag_of_Japan.svg",
-        opcionA: "Colombia",
-        opcionB: "Brasil",
-        opcionC: "Japón",
-        opcionD: "Perú",
+        optionA: "Colombia",
+        optionB: "Brasil",
+        optionC: "Japón",
+        optionD: "Perú",
         ans: "Japón",
         category: "flags",
         continent: "America",
@@ -191,17 +191,17 @@ class Questions extends React.Component {
 
                   :
                   <div  style={{textAlign: 'center', margin: '0 auto'}}>
-                   <Button size="small" color="primary"  style={opbtn} onClick={()=>this.chooseAnswer(question, question.opcionA)}>
-                     {question.opcionA}
+                   <Button size="small" color="primary"  style={opbtn} onClick={()=>this.chooseAnswer(question, question.optionA)}>
+                     {question.optionA}
                    </Button>
-                   <Button size="small" color="primary"  style={opbtn} onClick={()=>this.chooseAnswer(question, question.opcionB)}>
-                     {question.opcionB}
+                   <Button size="small" color="primary"  style={opbtn} onClick={()=>this.chooseAnswer(question, question.optionB)}>
+                     {question.optionB}
                    </Button>
-                   <Button size="small" color="primary"  style={opbtn} onClick={()=>this.chooseAnswer(question, question.opcionC)}>
-                     {question.opcionC}
+                   <Button size="small" color="primary"  style={opbtn} onClick={()=>this.chooseAnswer(question, question.optionC)}>
+                     {question.optionC}
                    </Button>
-                   <Button size="small" color="primary"  style={opbtn}  onClick={()=>this.chooseAnswer(question, question.opcionD)}>
-                     {question.opcionD}
+                   <Button size="small" color="primary"  style={opbtn}  onClick={()=>this.chooseAnswer(question, question.optionD)}>
+                     {question.optionD}
                    </Button>
                   </div>
                 }

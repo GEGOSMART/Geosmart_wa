@@ -45,14 +45,7 @@ class Games extends React.Component {
     return (
       <div style={{width: '100%',backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)', minHeight: '50em'}}>
         <div style={{display: 'flex'}}>
-          <GameCard
-            gameName="Locate the country"
-            gameDescription="Locate the indicated country on our interactive map"
-            handleFunctionContinent={(e) => this.handle_map_continent(e)}
-            gameImage={MapImage}
-            gameValue={this.state.map_continent}
-            onClickConfiguration={() => this.props.history.push({pathname: "/play/maps", filter: this.state.flag_continent, gametype: "flags"})}
-            />
+
 
           <GameCard
             gameName="Recognize the flag"
@@ -60,11 +53,21 @@ class Games extends React.Component {
             handleFunctionContinent={(e) => this.handle_flag_continent(e)}
             gameImage={FlagImage}
             gameValue={this.state.flag_continent}
-            onClickConfiguration={() => this.props.history.push({pathname: "/play/flags", filter: this.state.map_continent, gametype: "maps"})}
+            onClickConfiguration={() => this.props.history.push({pathname: "/play/flags", filter: this.state.map_continent, gametype: "flags"})}
             />
 
           <GameCard
-            gameName="Recognize the representative place"
+            disableSelect={true}
+            gameName="Locate the country"
+            gameDescription="Locate the indicated country on our interactive map"
+            //handleFunctionContinent={(e) => this.handle_map_continent(e)}
+            gameImage={MapImage}
+            gameValue={this.state.map_continent}
+            onClickConfiguration={() => this.props.history.push({pathname: "/play/map", filter: this.state.flag_continent})}
+            />
+
+          <GameCard
+            gameName="Recognize the place"
             gameDescription="Recognize to which country the indicated representative place belongs"
             handleFunctionContinent={(e) => this.handle_place_continent(e)}
             gameImage={PlaceImage}
