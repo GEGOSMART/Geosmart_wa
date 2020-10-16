@@ -89,6 +89,14 @@ class Questions extends React.Component {
   }
 
   nextQuestion(){
+
+    if(this.state.current_question + 1  >= this.state.questions.length){
+       //save score
+       var total_score = this.state.score;
+       //...
+       //
+    }
+
     return this.setState({current_question: this.state.current_question + 1, mostrar_boton_next: false, correct_selected: false})
   }
 

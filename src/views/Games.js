@@ -11,9 +11,9 @@ class Games extends React.Component {
     super(props);
 
     this.state = {
-      map_continent: "global",
-      flag_continent: "global",
-      place_continent: "global"
+      map_continent: "Global",
+      flag_continent: "Global",
+      place_continent: "Global"
     };
   }
 
