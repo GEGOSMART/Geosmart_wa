@@ -16,7 +16,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Copyright from '../components/Footer/Copyright';
+import Copyright from '../components/footer/Copyright';
 import loginUser from '../redux/actions/loginUser';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#7ab648',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: '#3a7ca4',
   },
 }));
 
@@ -106,7 +107,6 @@ const LoginPage = ({ user, loginUser }) => {
                 label="Remember me"
               />
               <Button
-                type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
