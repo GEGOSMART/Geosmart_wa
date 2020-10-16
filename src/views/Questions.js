@@ -8,7 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { connect } from "react-redux";
-import Trofeo from '../assets/img/trofeo.jpg'
+import Trofeo from '../assets/img/trofeo.jpg';
+import createscore from '../redux/actions/createscore'
 
 const question_points = 100;
 
@@ -92,7 +93,11 @@ class Questions extends React.Component {
 
     if(this.state.current_question + 1  >= this.state.questions.length){
        //save score
-       var total_score = this.state.score;
+       var id_user = this.state.user._id;
+       var total_score = this.state.score + 1;
+       var date_played = new Date();
+       var id_game = this.state.game._id;
+
        //...
        //
     }
