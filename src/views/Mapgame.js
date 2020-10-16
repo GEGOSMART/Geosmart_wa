@@ -19,11 +19,40 @@ import {
 } from "react-google-maps";
 import Trofeo from '../assets/img/trofeo.jpg'
 
+const mapStyles = {
+    featureType: "administrative.country",
+    elementType: "labels",
+    stylers: [
+        { visibility: "off" }
+    ]
+}
+
+const st = {
+    "featureType": "all",
+    "stylers": [
+      { "color": "#aad80e" }
+    ]
+  }
+
 const GoogleMapComp = withGoogleMap(props => (
      <GoogleMap
        defaultCenter={props.center}
        defaultZoom={2}
+       defaultOptions={{
+            zoomControl: false, styles: [mapStyles, st]
+        }}
      >
+
+     {/*
+     {styles: {
+            featureType: "administrative.country",
+            elementType: "labels",
+            stylers: [
+                { visibility: "off" }
+            ]
+        }}
+
+      */}
 
      <Marker
        icon= {{url: "https://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png"}}
