@@ -6,6 +6,8 @@ import MapImage from '../assets/img/map.jpg'
 import FlagImage from '../assets/img/flag.png'
 import PlaceImage from '../assets/img/place.jpg'
 
+
+
 class Games extends React.Component {
   constructor(props) {
     super(props);
@@ -53,7 +55,7 @@ class Games extends React.Component {
             handleFunctionContinent={(e) => this.handle_flag_continent(e)}
             gameImage={FlagImage}
             gameValue={this.state.flag_continent}
-            onClickConfiguration={() => this.props.history.push({pathname: "/play/flags", filter: this.state.map_continent, gametype: "flags"})}
+            onClickConfiguration={() => this.props.history.push({pathname: "/play/flags", filter: this.state.flag_continent, gametype: "flags"})}
             />
 
           <GameCard
@@ -63,7 +65,7 @@ class Games extends React.Component {
             //handleFunctionContinent={(e) => this.handle_map_continent(e)}
             gameImage={MapImage}
             gameValue={this.state.map_continent}
-            onClickConfiguration={() => this.props.history.push({pathname: "/play/map", filter: this.state.flag_continent})}
+            onClickConfiguration={() => this.props.history.push({pathname: "/play/map", filter: this.state.map_continent})}
             />
 
           <GameCard

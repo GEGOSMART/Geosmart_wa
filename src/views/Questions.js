@@ -10,6 +10,11 @@ import Typography from '@material-ui/core/Typography';
 import { connect } from "react-redux";
 import Trofeo from '../assets/img/trofeo.jpg';
 import createscore from '../redux/actions/createscore'
+import Loader from '../components/Loader/Loader.js'
+
+import axios from 'axios';
+import { URL } from "../redux/data/server";
+
 
 const question_points = 100;
 
@@ -21,7 +26,8 @@ class Questions extends React.Component {
       correct_selected: false,
       score: 0,
       current_question: 0,
-      questions: [
+      questions: null,
+      questionsx: [
         {
           _id: "someid",
           statement: "¿A que lugar pertenece esta bandera?",
@@ -68,7 +74,33 @@ class Questions extends React.Component {
     };
   }
 
-  componentDidMount() {}
+async componentDidMount() {
+    console.log(this.props.location.filter)
+    const category = this.props.location.gametype;
+    const continent = this.props.location.filter;
+    const questions = await axios.post(URL, {
+    query: `
+      query {
+        gameQuestions(category: ${category}) {
+          categoria
+          ERROR
+          preguntas{
+            _id
+            statement
+            optionA
+            optionB
+            optionC
+            optionD
+            continent
+            ans
+          }
+         }
+        }
+        `
+      })
+    console.log(questions)
+    this.setState({questions: questions.preguntas})
+  }
 
   componentWillReceiveProps(props) {}
 
@@ -106,6 +138,11 @@ class Questions extends React.Component {
   }
 
   render() {
+    if(this.state.questions == null){
+      return(
+        <Loader/>
+      )
+    }
     const question = this.state.questions[this.state.current_question];
     const opbtn = {color: 'white', backgroundColor: '#00bcd4', margin: '1em'}
     const comp_style_flags = { backgroundImage: 'linear-gradient(15deg, #13547a 0%, #80d0c7 100%)',
@@ -125,8 +162,7 @@ class Questions extends React.Component {
               <h2 style={{color: 'white', marginTop: '1.5em', fontWeight: 600, fontSize: '3em'}}>Identify which country the place belongs to</h2>
           }
 
-          <h3 style={{color: '#9C27B0', fontWeight: 600, fontSize: '2em', borderRadius: '12px',marginLeft: 'auto', marginRight: 'auto',
-                      background: '#ff5722', padding: '0.7em', boxShadow: '0px 6px 6px -3px rgba(0,0,0,0.2), 0px 10px 14px 1px rgba(0,0,0,0.14), 0px 4px 18px 3px rgba(0,0,0,0.12)'}}>
+          <h3 className="score">
               <span style={{color: 'white'}}>Current score: </span>
               {this.state.score}
           </h3>

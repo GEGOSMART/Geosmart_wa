@@ -12,7 +12,8 @@ import Button from '@material-ui/core/Button';
 
 const GameCard = (gameConfiguration) => {
   return (
-    <Card style={{margin:'3em', height: '100%', width: '100%'}}>
+    <Card style={{margin:'3em', height: '100%', width: '100%', borderRadius: '25px',
+                  boxShadow: '0px 6px 6px -3px rgba(0,0,0,0.2), 0px 10px 14px 1px rgba(0,0,0,0.14), 0px 4px 18px 3px rgba(0,0,0,0.12)'}}>
       <CardActionArea style={{marginTop: '2em'}}>
         <CardMedia
           style={{height: 140, width: 140, margin: '0 auto', borderRadius: '50%'}}

@@ -218,14 +218,13 @@ class Mapgame extends React.Component {
                     boxShadow: '0px 6px 6px -3px rgba(0,0,0,0.2), 0px 10px 14px 1px rgba(0,0,0,0.14), 0px 4px 18px 3px rgba(0,0,0,0.12)'
                   }
     return (
-      <div style={{width: '100%',backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)', minHeight: '60em', fontFamily: 'system-ui'}}>
-       <div style={{textAlign: 'center', display: 'flex', flexDirection: 'column'}}>
+      <div className="map_container">
+       <div className="map_flexcontainer" >
           <h2 style={{color: 'white', fontWeight: 600, fontSize: '3em', maxWidth: '25em', margin: '0 auto', marginTop: '1.5em'}}>
             Identify the location on the map by choosing the correct marker
           </h2>
 
-          <h3 style={{color: '#9C27B0', fontWeight: 600, fontSize: '2em', borderRadius: '12px',marginLeft: 'auto', marginRight: 'auto',
-                      background: '#ff5722', padding: '0.7em', boxShadow: '0px 6px 6px -3px rgba(0,0,0,0.2), 0px 10px 14px 1px rgba(0,0,0,0.14), 0px 4px 18px 3px rgba(0,0,0,0.12)'}}>
+          <h3 className="score">
               <span style={{color: 'white'}}>Current score: </span>
               {this.state.score}
           </h3>
@@ -263,15 +262,19 @@ class Mapgame extends React.Component {
 
           {
              this.state.mostrar_boton_next ?
-             <Card style={{margin: '0 auto', width: '20em', padding: '2em', borderRadius: '12px',
+             <Card style={{margin: '0 auto', width: '20em', padding: '2em', borderRadius: '12px', marginTop: '8em',
                            boxShadow: '0px 6px 6px -3px rgba(0,0,0,0.2), 0px 10px 14px 1px rgba(0,0,0,0.14), 0px 4px 18px 3px rgba(0,0,0,0.12)'
                           }}>
                <div  style={{textAlign: 'center', margin: '0 auto', display: 'flex', flexDirection: 'column'}}>
                  {
                    this.state.correct_selected === true ?
-                    <span style={{color: '#07d607', fontWeight: 600}}>Correct! + {question_points}</span>
+                    <span className="mapGameCorrect">
+                        Correct! + {question_points}
+                    </span>
                    :
-                    <span style={{color: 'red', fontWeight: 600}}>Incorrect!</span>
+                    <span className="mapGameIncorrect" >
+                        Incorrect!
+                    </span>
                  }
                 <Button size="small" color="primary" style={opbtn} onClick={()=>this.nextQuestion()}>
                   Next question
@@ -285,7 +288,7 @@ class Mapgame extends React.Component {
           {
             question && this.state.mostrar_boton_next != true ?
              <>
-              <h2>{question.statement}</h2>
+              <h2 style={{color: "#FFEB3B"}}>{question.statement}</h2>
               <GoogleMapComp
                    center = { { lat:  4.6097100, lng: -74.0817500 } }
                    containerElement={ <div style={{ height: '100%', width: '100%' , overflow: 'hidden', margin: '0 auto'}} /> }
