@@ -9,6 +9,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const GameCard = (gameConfiguration) => {
   return (
@@ -28,23 +29,25 @@ const GameCard = (gameConfiguration) => {
           </Typography>
           {
             gameConfiguration.disableSelect ? null :
-          <>
-            <InputLabel style={{marginTop: '2em'}}>Only questions from: </InputLabel>
-              <Select
-                style={{width: '100%'}}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={gameConfiguration.gameValue}
-                onChange={gameConfiguration.handleFunctionContinent}
-              >
-                <MenuItem value={"Global"}>All the world</MenuItem>
-                <MenuItem value={"America"}>America</MenuItem>
-                <MenuItem value={"Asia"}>Asia</MenuItem>
-                <MenuItem value={"Africa"}>África</MenuItem>
-                <MenuItem value={"Europa"}>Europe</MenuItem>
-                <MenuItem value={"Oceania"}>Oceania</MenuItem>
-              </Select>
-            </>
+              <>
+                <Tooltip title="Restrict game questions to a given continent">
+                  <InputLabel style={{marginTop: '2em'}}>Only questions from: </InputLabel>
+                </Tooltip>
+                <Select
+                  style={{width: '100%'}}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={gameConfiguration.gameValue}
+                  onChange={gameConfiguration.handleFunctionContinent}
+                >
+                  <MenuItem value={"Global"}>All the world</MenuItem>
+                  <MenuItem value={"America"}>America</MenuItem>
+                  <MenuItem value={"Asia"}>Asia</MenuItem>
+                  <MenuItem value={"Africa"}>África</MenuItem>
+                  <MenuItem value={"Europa"}>Europe</MenuItem>
+                  <MenuItem value={"Oceania"}>Oceania</MenuItem>
+                </Select>
+              </>
             }
         </CardContent>
       </CardActionArea>

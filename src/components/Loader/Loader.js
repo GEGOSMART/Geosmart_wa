@@ -25,11 +25,11 @@ class Loader extends React.Component {
 
   render() {
     return (
-      <div style={{width: '100%',backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)', minHeight: '50em'}}>
+      <div style={{width: '100%',backgroundImage: 'linear-gradient(315deg, #7f53ac 0%, #647dee 74%)', minHeight: '50em'}}>
        <div style={{textAlign: 'center'}}>
             <CircularProgress
             variant="indeterminate"
-            style={{marginTop: '15em', color: '#9c27b0'}}
+            style={{marginTop: '15em', color: '#FFEB3B'}}
             size={200}
             thickness={10}
             value={100}

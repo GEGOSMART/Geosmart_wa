@@ -8,12 +8,14 @@ import Signup from './views/SignupPage';
 import Games from  './views/Games';
 import Questions from  './views/Questions';
 import Mapgame from './views/Mapgame'
+import Navbar from './components/Navbar'
 // redux store
 import store from  './redux/store'
 
 const Root = (
   <Provider store={store}>
     <BrowserRouter>
+      <Navbar />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
