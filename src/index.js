@@ -1,21 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import store from './app/store';
-import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+// views
+import Login from './views/LoginPage';
+import Signup from './views/SignupPage';
+import Games from  './views/Games';
+import Questions from  './views/Questions';
+import Mapgame from './views/Mapgame'
+import Navbar from './components/Navbar'
+// redux store
+import store from  './redux/store'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+const Root = (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Navbar />
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/games" component={Games} />
+        <Route path="/play/map" component={Mapgame} />
+        <Route path="/play/flags" component={Questions} />
+        <Route path="/play/places" component={Questions} />
+      </Switch>
+    </BrowserRouter>
+  </Provider>
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(Root, document.getElementById('root'));
