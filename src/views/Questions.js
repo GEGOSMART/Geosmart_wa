@@ -74,35 +74,51 @@ class Questions extends React.Component {
     };
   }
 
-async componentDidMount() {
-    console.log(this.props.location.filter)
-    const category = this.props.location.gametype;
-    const continent = this.props.location.filter;
-    const questions = await axios.post(URL, {
-    query: `
-      query {
-        gameQuestions(category: ${category}) {
-          categoria
-          ERROR
-          preguntas{
-            _id
-            statement
-            optionA
-            optionB
-            optionC
-            optionD
-            continent
-            ans
-          }
-         }
-        }
-        `
-      })
-    console.log(questions)
-    this.setState({questions: questions.preguntas})
+async getQuestions(){
+  console.log(this.props.location.gametype)
+  console.log(this.props.location.filter)
+  const category = this.props.location.gametype;
+  let continent = this.props.location.filter;
+  if(continent == "Global"){
+     continent = ""; //no continent in particular
   }
+  const questions = await axios.post(URL, {
+  query: `
+    query {
+      gameQuestions(category: "${category}", continent: "${continent}") {
+        categoria
+        ERROR
+        preguntas{
+          _id
+          statement
+          optionA
+          optionB
+          optionC
+          optionD
+          continent
+          ans
+        }
+       }
+      }
+      `
+    })
+  console.log(questions)
+  return this.setState({questions: questions.data.data.gameQuestions.preguntas})
+}
 
-  componentWillReceiveProps(props) {}
+  componentDidMount() {
+      console.log(this.props.location)
+      if(!this.props.location.gametype){
+         return this.props.history.push('/games')
+      }
+      this.getQuestions();
+
+    }
+
+  componentDidUpdate(props) {
+
+
+  }
 
   componentWillUnmount() {}
 
@@ -125,10 +141,10 @@ async componentDidMount() {
 
     if(this.state.current_question + 1  >= this.state.questions.length){
        //save score
-       var id_user = this.state.user._id;
+       //var id_user = this.state.user._id;
        var total_score = this.state.score + 1;
        var date_played = new Date();
-       var id_game = this.state.game._id;
+       var id_game = "1";
 
        //...
        //
@@ -138,7 +154,7 @@ async componentDidMount() {
   }
 
   render() {
-    if(this.state.questions == null){
+    if(this.state.questions == null || this.state.questions == null){
       return(
         <Loader/>
       )
@@ -152,7 +168,7 @@ async componentDidMount() {
                                 width: '100%', minHeight: '50em', fontFamily: 'system-ui'}
 
     return (
-      <div style={this.props.location.gametype === "flags" ? comp_style_flags : comp_style_places}>
+      <div style={this.props.location.gametype && this.props.location.gametype === "flags" ? comp_style_flags : comp_style_places}>
        <div style={{display: 'flex', textAlign: 'center', flexDirection: 'column'}}>
 
           {
