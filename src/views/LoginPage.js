@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { connect } from "react-redux";
+import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,51 +16,18 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 
-import Copyright from '../components/Footer/Copyright';
+import Copyright from '../components/footer/Copyright';
+import Styles from '../components/userManagement/Styles';
 import loginUser from '../redux/actions/loginUser';
-
-import axios from 'axios';
 import { URL } from "../redux/data/server";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-  },
-  image: {
-    backgroundImage: 'url(https://source.unsplash.com/collection/15780809)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
 
 const LoginPage = ({ user, loginUser }) => {
   console.log(user);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const classes = Styles();
   const history = useHistory();
-  const classes = useStyles();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -111,7 +79,7 @@ const LoginPage = ({ user, loginUser }) => {
                 margin="normal"
                 required
                 fullWidth
-                id="text"
+                id="username"
                 label="Username"
                 name="username"
                 autoComplete="username"
@@ -135,7 +103,6 @@ const LoginPage = ({ user, loginUser }) => {
                 label="Remember me"
               />
               <Button
-                type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
