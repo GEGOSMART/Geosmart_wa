@@ -18,6 +18,20 @@ import {
   Marker
 } from "react-google-maps";
 import Trofeo from '../assets/img/trofeo.jpg'
+import axios from 'axios';
+import { URL } from "../redux/data/server";
+
+
+const question_points = 100;
+const icons_urls = [
+  "https://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png",
+  "https://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png",
+  "https://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png",
+  "https://www.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png",
+  "https://www.google.com/intl/en_us/mapfiles/ms/micons/pink-dot.png",
+  "https://www.google.com/intl/en_us/mapfiles/ms/micons/orange-dot.png",
+  "https://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png"
+]
 
 const mapStyles = {
     featureType: "administrative.country",
@@ -34,173 +48,83 @@ const st = {
     ]
   }
 
-const GoogleMapComp = withGoogleMap(props => (
+const GoogleMapComp = withGoogleMap(props => {
+  const items = props.options.map((question, i) => {
+    const random_icon_index = Math.floor(Math.random() * icons_urls.length);
+    return(
+      <Marker
+        key={"opt"+i}
+        icon= {{url: icons_urls[random_icon_index] }}
+        title={"option "+i}
+        name={"option "+i}
+        position={{lat: question.latitude, lng: question.longitude }}
+        draggable={false}
+        onClick={(e) => {
+               props.choose(question)
+               }}
+       />
+     )
+  })
+
+  return(
      <GoogleMap
        defaultCenter={props.center}
        defaultZoom={2}
        defaultOptions={{
             zoomControl: false, styles: [mapStyles, st]
-        }}
-     >
-
-     {/*
-     {styles: {
-            featureType: "administrative.country",
-            elementType: "labels",
-            stylers: [
-                { visibility: "off" }
-            ]
-        }}
-
-      */}
-
-     <Marker
-       icon= {{url: "https://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png"}}
-       title={"option A"}
-       name={"option A"}
-       position={{lat: props.optionA.lat, lng: props.optionA.lng }}
-       draggable={false}
-       onClick={(e) => {
-              props.choose(props.optionA)
-              }}
-      />
-
-      <Marker
-        icon= {{url: "https://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png"}}
-        title={"option B"}
-        name={"option B"}
-        position={{lat: props.optionB.lat, lng: props.optionB.lng }}
-        draggable={false}
-        onClick={(e) => {
-               props.choose(props.optionB)
-               }}
-       />
-
-       <Marker
-         icon= {{url: "https://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png"}}
-         title={"option C"}
-         name={"option C"}
-         position={{lat: props.optionC.lat, lng: props.optionC.lng }}
-         draggable={false}
-         onClick={(e) => {
-                props.choose(props.optionC)
-                }}
-        />
-
-        <Marker
-          icon= {{url: "https://www.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png"}}
-          title={"option D"}
-          name={"option D"}
-          position={{lat: props.optionD.lat, lng: props.optionD.lng }}
-          draggable={false}
-          onClick={(e) => {
-                 props.choose(props.optionD)
-                 }}
-         />
-
-
-         {props.showStart ?
-           <Marker
-
-             icon= {{url: "http://mt.google.com/vt/icon?psize=25&font=fonts/Roboto-Bold.ttf&color=ff135C13&name=icons/spotlight/spotlight-waypoint-a.png&ax=44&ay=50&text=%E2%80%A2"}}
-             title={"test"}
-             name={"ehehe"}
-             //position={ {lat: 4.626820403668342, lng: -74.08089169311525}}
-             position={{lat: props.startMarkerPos.lat, lng: props.startMarkerPos.lng }}
-             draggable={true}
-             onDragEnd={(e) => {
-                   props.onStartMarkerChange(e)
-                   //console.log(e.latLng.lat(), e.latLng.lng());
-               }}
-           /> :
-           null
-         }
-
-         {props.showEnd ?
-           <Marker
-
-             //icon= {{url: "http://maps.google.com/mapfiles/ms/icons/orange.png"}}
-             icon= {{url: "http://mt.google.com/vt/icon?psize=25&font=fonts/Roboto-Bold.ttf&color=ff135C13&name=icons/spotlight/spotlight-waypoint-b.png&ax=44&ay=50&text=%E2%80%A2"}}
-             title={"test"}
-             name={"eheheb"}
-             //position={ {lat: 4.642561609861135 ,lng: -74.07883175659181}}
-             position={{lat: props.endMarkerPos.lat, lng: props.endMarkerPos.lng }}
-             draggable={true}
-             onDragEnd={(e) => {
-               props.onEndMarkerChange(e)
-               }}
-           /> :
-           null
-         }
-
+        }}>
+      {items}
      </GoogleMap>
-   ));
+   )});
 
-const question_points = 100;
+
+
 
 class Mapgame extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       mostrar_boton_next: false,
       correct_selected: false,
+      gameLength: 5,
       score: 0,
       current_question: 0,
-      questions: [
-        {
-          _id: "someid",
-          statement: "Locate Colombia on the map",
-          image: "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Flag_of_Brazil.svg/1200px-Flag_of_Brazil.svg.png",
-          optionA: { lat:  4.6097100, lng: -74.0817500 },
-          optionB: { lat:  5.6097100, lng: -44.0817500 },
-          optionC: { lat:  8.6097100, lng: -64.0817500 },
-          optionD: { lat:  7.6097100, lng: -34.0817500 },
-          ans: { lat:  4.6097100, lng: -74.0817500 },
-          category: "flags",
-          continent: "America",
-          created_at: "somedate",
-          Updated_at: "otherdate"
-        },
-        {
-          _id: "someid",
-          statement: "Locate Colombia on the map",
-          image: "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Flag_of_Brazil.svg/1200px-Flag_of_Brazil.svg.png",
-          optionA: { lat:  4.6097100, lng: -74.0817500 },
-          optionB: { lat:  5.6097100, lng: -44.0817500 },
-          optionC: { lat:  8.6097100, lng: -64.0817500 },
-          optionD: { lat:  7.6097100, lng: -34.0817500 },
-          ans: { lat:  4.6097100, lng: -74.0817500 },
-          category: "flags",
-          continent: "America",
-          created_at: "somedate",
-          Updated_at: "otherdate"
-        },
-
-      ]
-
-
+      questions: null,
     }
   }
 
-  componentDidMount() {
-    //console.log("Usuario "+JSON.stringify(this.props.user))
-
+  async getQuestions(){
+    const continent = 1 + Math.floor(Math.random() * 7);
+    const questions = await axios.post(URL, {
+    query: `
+      query {
+        countriesByContinent(id_continent: ${continent}) {
+          name
+          latitude
+          longitude
+          }
+        }
+        `
+      })
+    console.log(questions)
+    return this.setState({questions: questions.data.data.countriesByContinent})
   }
 
-  componentWillReceiveProps(props) {}
+  componentDidMount() {
+    this.getQuestions()
+  }
 
-  componentWillUnmount() {}
 
   chooseAnswer(question, answer) {
     console.log(answer)
     let points = 0;
     let acertado = false;
-    if(question.ans.lat === answer.lat && question.ans.lng === answer.lng ){
+    if(question.latitude === answer.latitude && question.longitude === answer.longitude ){
        points = question_points;
        acertado = true;
     }
 
+    this.getQuestions()
     return this.setState({score: this.state.score + points, mostrar_boton_next: true, correct_selected: acertado});
   }
 
@@ -213,7 +137,12 @@ class Mapgame extends React.Component {
   }
 
   render() {
-    const question = this.state.questions[this.state.current_question];
+    var answer = null;
+    const question = this.state.questions;
+    if(question){
+       answer = Math.floor(Math.random() * this.state.questions.length);
+    }
+
     const opbtn = { color: 'white', backgroundColor: '#9C27B0', margin: '1em', padding: '0.7em',
                     boxShadow: '0px 6px 6px -3px rgba(0,0,0,0.2), 0px 10px 14px 1px rgba(0,0,0,0.14), 0px 4px 18px 3px rgba(0,0,0,0.12)'
                   }
@@ -230,7 +159,7 @@ class Mapgame extends React.Component {
           </h3>
 
           {
-            this.state.current_question >= this.state.questions.length ?
+            this.state.current_question >= this.state.gameLength ?
               <Card style={{margin:'0 auto'}} elevation={10}>
                 <CardActionArea style={{marginTop: '2em', minWidth: '45em'}}>
                   <CardMedia
@@ -286,26 +215,25 @@ class Mapgame extends React.Component {
           }
 
           {
-            question && this.state.mostrar_boton_next !== true ?
+            question && this.state.mostrar_boton_next !== true &&   this.state.current_question < this.state.gameLength ?
              <>
-              <h2 style={{color: "#FFEB3B"}}>{question.statement}</h2>
+              <h2 style={{color: "#FFEB3B"}}>
+                {"Locate "+  this.state.questions[answer].name +" in the map"}
+              </h2>
               <GoogleMapComp
                    center = { { lat:  4.6097100, lng: -74.0817500 } }
                    containerElement={ <div style={{ height: '100%', width: '100%' , overflow: 'hidden', margin: '0 auto'}} /> }
                    mapElement={ <div className="map_element" /> }
-                   optionA =  { question.optionA }
-                   optionB =  { question.optionB }
-                   optionC =  { question.optionC }
-                   optionD =  { question.optionD }
-                   choose ={(option)=>this.chooseAnswer(question, option)}
+                   options = {question}
                    /*
-                   showStart = {this.props.showStart}
-                   showEnd = {this.props.showEnd}
-                   startMarkerPos = {this.state.positionStart}
-                   endMarkerPos = {this.state.positionEnd}
-                   onStartMarkerChange={(e)=>this.handleStartMarkerChange(e)}
-                   onEndMarkerChange={(e)=>this.handleEndMarkerChange(e)}
+                   optionA =  { question[0]}
+                   optionB =  { question[1]}
+                   optionC =  { question[2]}
+                   optionD =  { question[3]}
+                   optionE =  { question[4]}
                    */
+                   choose ={(option)=>this.chooseAnswer(question[answer], option)}
+
                  />
               </>
               : null

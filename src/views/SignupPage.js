@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
-import Copyright from '../components/footer/Copyright';
+import Copyright from '../components/Footer/Copyright.js';
 import Styles from '../components/userManagement/Styles';
 import { URL } from '../redux/data/server';
 
@@ -27,7 +27,7 @@ const SignupPage = () => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    
+
     if(password !== cpassword) {
       alert("The password and confirm password fields must be same");
       return
