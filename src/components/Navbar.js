@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class Navbar extends React.Component {
   constructor(props) {

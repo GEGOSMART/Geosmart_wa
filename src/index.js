@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 // views
 import Login from './views/LoginPage';
 import Signup from './views/SignupPage';
@@ -25,6 +25,7 @@ const Root = (
         <Route path="/play/map" component={Mapgame} />
         <Route path="/play/flags" component={Questions} />
         <Route path="/play/places" component={Questions} />
+        <Redirect from="/" to="home" />
       </Switch>
     </BrowserRouter>
   </Provider>

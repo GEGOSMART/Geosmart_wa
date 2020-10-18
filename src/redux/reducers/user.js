@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { URL } from "../data/server";
 import {type as loginUserType} from "../actions/loginUser"
 
 const defaultState = null;

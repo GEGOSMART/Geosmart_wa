@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from "react-redux";
-import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
@@ -40,7 +38,5 @@ class Loader extends React.Component {
     );
   }
 }
-
-
 
 export default Loader;

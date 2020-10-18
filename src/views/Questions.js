@@ -79,7 +79,7 @@ async getQuestions(){
   console.log(this.props.location.filter)
   const category = this.props.location.gametype;
   let continent = this.props.location.filter;
-  if(continent == "Global"){
+  if(continent === "Global"){
      continent = ""; //no continent in particular
   }
   const questions = await axios.post(URL, {

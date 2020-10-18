@@ -52,7 +52,13 @@ const LoginPage = ({ user, loginUser }) => {
           }
           `
         })
-      loginUser(user_object);
+
+        if (user_object.status) {
+          loginUser(user_object.data.data.loginUser);
+          history.push({pathname:"/games"})
+        } else {
+          alert("Ups! Something went wrong");
+        }
    }
    catch(err){
      console.log(err)
