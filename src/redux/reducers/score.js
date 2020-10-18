@@ -15,27 +15,5 @@ function reducer(state = defaultState, action) {
   };
 };
 
-async function insert_score(id_user, score, date_played, id_game) {
-  const r = await axios.post(URL, {
-    query: `
-    mutation{
-        createScore(score:{
-                   ID_User: "${id_user}",
-                   Score: "${score}",
-                   DatePlayed: "${date_played}",
-                   ID_Game: "${id_game}"
-        }){
-             message
-        }
-      }
-             
-      `
-    }
-  ).catch(err => {
-    console.error(err)
-  });
-
-  return r.data;
-}
 
 export default reducer;

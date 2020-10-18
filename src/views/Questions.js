@@ -106,7 +106,33 @@ async getQuestions(){
     })
   console.log(questions)
   return this.setState({questions: questions.data.data.gameQuestions.preguntas})
-}
+ }
+
+ async insertScore(id_user, score, date_played, id_game){
+  const scoreFunc = await axios.post(URL, {
+      query: `
+      mutation{
+          createScore(score:{
+                     ID_User: "${id_user}",
+                     Score: "${score}",
+                     DatePlayed: "${date_played}",
+                     ID_Game: "${id_game}"
+          }){
+               message
+          }
+        }
+               
+        `
+      }
+    ).catch(err => {
+      console.error(err)
+    });
+
+    createscore(id_user, score, date_played, id_game);
+    
+    console.log(scoreFunc);
+ }
+
 
   componentDidMount() {
       console.log(this.props.location)
@@ -123,6 +149,7 @@ async getQuestions(){
   }
 
   componentWillUnmount() {}
+
 
   chooseAnswer(question, answer) {
     let points = 0;
@@ -141,16 +168,19 @@ async getQuestions(){
 
   nextQuestion(){
 
-    if(this.state.current_question + 1  >= this.state.questions.length){
+    if(this.state.current_question + 1 >= this.state.questions.length){
        //save score
        //var id_user = this.state.user._id;
        var total_score = this.state.score + 1;
        var date_played = new Date();
        var id_game = "1";
 
+       this.insertScore("prueba", total_score, date_played, id_game);
+
        //...
        //
     }
+    
 
     return this.setState({current_question: this.state.current_question + 1, mostrar_boton_next: false, correct_selected: false})
   }

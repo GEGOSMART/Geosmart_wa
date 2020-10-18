@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import createscore from '../redux/actions/createscore';
 import {
   withGoogleMap,
   withScriptjs,
@@ -110,6 +111,27 @@ class Mapgame extends React.Component {
     return this.setState({questions: questions.data.data.countriesByContinent})
   }
 
+  async insertScore(id_user, score, date_played, id_game){
+    await axios.post(URL, {
+        query: `
+        mutation{
+            createScore(score:{
+                       ID_User: "${id_user}",
+                       Score: "${score}",
+                       DatePlayed: "${date_played}",
+                       ID_Game: "${id_game}"
+            }){
+                 message
+            }
+          }
+                 
+          `
+        }
+      ).catch(err => {
+        console.error(err)
+      })
+   }
+
   componentDidMount() {
     this.getQuestions()
     if(this.props.location.rounds){
@@ -133,7 +155,20 @@ class Mapgame extends React.Component {
   }
 
   nextQuestion(){
-    return this.setState({current_question: this.state.current_question + 1, mostrar_boton_next: false, correct_selected: false})
+    if(this.state.current_question + 1 >= this.state.questions.length){
+      //save score
+      //var id_user = this.state.user._id;
+      var total_score = this.state.score + 1;
+      var date_played = new Date();
+      var id_game = "2";
+
+      this.insertScore("prueba", total_score, date_played, id_game)
+
+      //...
+      //
+   }
+
+    return this.setState({current_question: this.state.current_question + 1, mostrar_boton_next: false, correct_selected: false});
   }
 
   reiniciar(){

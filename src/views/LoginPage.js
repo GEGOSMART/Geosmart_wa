@@ -17,7 +17,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 
-import Copyright from '../components/Footer/Copyright';
+import Copyright from '../components/footer/Copyright';
 import Styles from '../components/userManagement/Styles';
 import loginUser from '../redux/actions/loginUser';
 import { URL } from "../redux/data/server";

@@ -107,7 +107,7 @@ const HomePage = () => {
           Learn Geography by Playing!
         </h2>
         <h2 style={{fontFamily: 'system-ui'}}>
-          Click the left logo to login, or the right logo to sign up.
+          Click the color logo to login, or the black and white logo to sign up.
         </h2>
       </font>
     </Grid>
