@@ -286,7 +286,7 @@ class Mapgame extends React.Component {
           }
 
           {
-            question && this.state.mostrar_boton_next != true ?
+            question && this.state.mostrar_boton_next !== true ?
              <>
               <h2 style={{color: "#FFEB3B"}}>{question.statement}</h2>
               <GoogleMapComp

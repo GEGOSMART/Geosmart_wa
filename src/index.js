@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 // views
 import Login from './views/LoginPage';
 import Signup from './views/SignupPage';
+import Home from './views/HomePage';
 import Games from  './views/Games';
 import Questions from  './views/Questions';
 import Mapgame from './views/Mapgame'
@@ -19,10 +20,12 @@ const Root = (
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/home" component={Home} />
         <Route path="/games" component={Games} />
         <Route path="/play/map" component={Mapgame} />
         <Route path="/play/flags" component={Questions} />
         <Route path="/play/places" component={Questions} />
+        <Redirect from="/" to="home" />
       </Switch>
     </BrowserRouter>
   </Provider>
