@@ -15,22 +15,23 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     background: 'blue',
     border: 'black',
-    'margin-top': '200px',
-    background: 'darkblue',
-    'border-radius': '40px'
+    //'margin-top': '200px',
+    background: '#3497d4',
+    //'border-radius': '40px'
   },
   item: {
     // background: 'red',
     width: '100%',
-    background: 'lightblue',
+    background: '#3F51B5',
     'textAlign': 'center',
     'borderRadius': '5px',
     'marginTop': '120px'
   },
   center: {
+    cursor: 'pointer',
     display: 'center',
     justifyContent: 'center',
-    'marginLeft': '700px',
+    'margin': 'auto',
     width: '250px',
     'float': 'left'
   },
@@ -56,13 +57,13 @@ const useStyles = makeStyles((theme) => ({
 const HomePage = () => {
 
   let history = useHistory();
-  const routeChange1 = () =>{ 
-    let path = `./login`; 
+  const routeChange1 = () =>{
+    let path = `./login`;
     history.push(path);
   }
-  
-  const routeChange2 = () =>{ 
-    let path = `./signup`; 
+
+  const routeChange2 = () =>{
+    let path = `./signup`;
     history.push(path);
   }
 
@@ -77,7 +78,7 @@ const HomePage = () => {
     className={classes.container}
   >
     <font color = "white" size = "80">
-      <h1>
+      <h1 style={{fontFamily: 'system-ui'}}>
         Welcome to Geosmart app.
       </h1>
     </font>
@@ -86,24 +87,26 @@ const HomePage = () => {
       sm={12}
       className={classes.item}
     >
-      
-    <div className ={classes.center}>
-        <img src={logo} alt="Logo" width="308" height="300" 
-                onClick={routeChange1} />
-    </div>
-    <div className ={classes.center}>
-        <img src={logobw} alt="Logo2" width="328" height="320" 
-                onClick={routeChange2} 
-                onmouseover={<p>Signup</p>}/>
-    </div>
-    
+
+      <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div className ={classes.center}>
+            <img src={logo} alt="Logo" width="308" height="300"
+                    onClick={routeChange1} />
+        </div>
+        <div className ={classes.center}>
+            <img src={logobw} alt="Logo2" width="328" height="320"
+                    onClick={routeChange2}
+                    onmouseover={<p>Signup</p>}/>
+        </div>
+      </div>
     </Grid>
+
     <Grid>
       <font color = "white" face = "Garamond">
-        <h2 >
+        <h2 style={{fontFamily: 'system-ui'}}>
           Learn Geography by Playing!
         </h2>
-        <h2 >
+        <h2 style={{fontFamily: 'system-ui'}}>
           Click the left logo to login, or the right logo to sign up.
         </h2>
       </font>
@@ -112,7 +115,7 @@ const HomePage = () => {
   );
 };
 
-const mapStateToProps = (state) => { //get user in the store 
+const mapStateToProps = (state) => { //get user in the store
   return {
     user: state.user,
   };

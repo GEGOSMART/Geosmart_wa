@@ -13,7 +13,7 @@ class Games extends React.Component {
     super(props);
 
     this.state = {
-      map_continent: "Global",
+      map_rounds: "5",
       flag_continent: "Global",
       place_continent: "Global"
     };
@@ -28,9 +28,9 @@ class Games extends React.Component {
 
   componentWillUnmount() {}
 
-  handle_map_continent(e){
+  handle_map_rounds(e){
     const value = e.target.value;
-    this.setState({map_continent: value})
+    this.setState({map_rounds: value})
   }
 
   handle_flag_continent(e){
@@ -59,13 +59,13 @@ class Games extends React.Component {
             />
 
           <GameCard
-            disableSelect={true}
+            mapGame={true}
             gameName="Locate the country"
-            gameDescription="Locate the indicated country on our interactive map"
-            //handleFunctionContinent={(e) => this.handle_map_continent(e)}
+            gameDescription="Locate the indicated country on our interactive map on a given series of rounds"
+            handleFunctionContinent={(e) => this.handle_map_rounds(e)}
             gameImage={MapImage}
-            gameValue={this.state.map_continent}
-            onClickConfiguration={() => this.props.history.push({pathname: "/play/map", filter: this.state.map_continent})}
+            gameValue={this.state.map_rounds}
+            onClickConfiguration={() => this.props.history.push({pathname: "/play/map", rounds: this.state.map_rounds})}
             />
 
           <GameCard

@@ -112,6 +112,10 @@ class Mapgame extends React.Component {
 
   componentDidMount() {
     this.getQuestions()
+    if(this.props.location.rounds){
+       this.setState({gameLength: this.props.location.rounds})
+    }
+
   }
 
 

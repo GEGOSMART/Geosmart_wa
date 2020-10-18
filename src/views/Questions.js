@@ -82,6 +82,7 @@ async getQuestions(){
   if(continent === "Global"){
      continent = ""; //no continent in particular
   }
+
   const questions = await axios.post(URL, {
   query: `
     query {
@@ -96,6 +97,7 @@ async getQuestions(){
           optionC
           optionD
           continent
+          image
           ans
         }
        }
@@ -219,7 +221,7 @@ async getQuestions(){
               <Card style={{margin:'0 auto'}} elevation={10}>
                 <CardActionArea style={{marginTop: '2em', minWidth: '45em'}}>
                   <CardMedia
-                    style={{height: 140, width: 140, margin: '0 auto'}}
+                    style={{height: 140, width: 200, margin: '0 auto'}}
                     image={question.image}
                     title="Contemplative Reptile"/>
                   <CardContent>
