@@ -10,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 
 import avatar from "../assets/img/marc.jpg";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '90vh',

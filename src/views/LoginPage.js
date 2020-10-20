@@ -132,7 +132,6 @@ const LoginPage = ({ loginUser }) => {
                   </Link>
                 </Grid>
               </Grid>
-              <a onClick={() => history.push('/games')}>go to games (test)</a>
               <Box mt={5}>
                 <Copyright />
               </Box>
