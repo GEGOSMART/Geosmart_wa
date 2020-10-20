@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import Copyright from '../components/footer/Copyright';
-import Styles from '../components/userManagement/Styles';
+import Styles from '../assets/JSS/userManagement/Styles';
 import { URL } from '../redux/data/server';
 
 const SignupPage = () => {

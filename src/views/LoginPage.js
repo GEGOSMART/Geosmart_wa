@@ -18,12 +18,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 
 import Copyright from '../components/footer/Copyright';
-import Styles from '../components/userManagement/Styles';
+import Styles from '../assets/JSS/userManagement/Styles';
 import loginUser from '../redux/actions/loginUser';
 import { URL } from "../redux/data/server";
 
-const LoginPage = ({ user, loginUser }) => {
-  console.log(user);
+const LoginPage = ({ loginUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const classes = Styles();
@@ -32,7 +31,7 @@ const LoginPage = ({ user, loginUser }) => {
   async function handleSubmit(event) {
     event.preventDefault();
     //loggear al usuario
-    try{
+    try {
       const user_object = await axios.post(URL, {
         query: `
           mutation {
@@ -50,20 +49,24 @@ const LoginPage = ({ user, loginUser }) => {
               token
             }
           }
-          `
-        })
+        `
+      })
 
-        if (user_object.status) {
-          loginUser(user_object.data.data.loginUser);
-          history.push({pathname:"/games"})
-        } else {
-          alert("Ups! Something went wrong");
-        }
-   }
-   catch(err){
+      if (user_object.status) {
+        const country_flag = await axios.get(
+          `https://restcountries.eu/rest/v2/name/${user_object.data.data.loginUser.country}`
+        );
+
+        user_object.data.data.loginUser.flag = country_flag.data.[0].flag;
+        loginUser(user_object.data.data.loginUser);
+        history.push({pathname:"/games"})
+      } else {
+        alert("Ups! Something went wrong");
+      }
+    }
+    catch(err) {
      console.log(err)
    }
-
   }
 
   return (
@@ -89,7 +92,7 @@ const LoginPage = ({ user, loginUser }) => {
                 label="Username"
                 name="username"
                 autoComplete="username"
-                onChange={(e)=>setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
                 autoFocus
               />
               <TextField
@@ -102,7 +105,7 @@ const LoginPage = ({ user, loginUser }) => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -129,7 +132,7 @@ const LoginPage = ({ user, loginUser }) => {
                   </Link>
                 </Grid>
               </Grid>
-              <a onClick={()=>history.push('/games')}>go to games (test)</a>
+              <a onClick={() => history.push('/games')}>go to games (test)</a>
               <Box mt={5}>
                 <Copyright />
               </Box>
@@ -143,7 +146,6 @@ const LoginPage = ({ user, loginUser }) => {
 
 const mapStateToProps = (state) => { //get user in the store
   return {
-    user: state.user,
   };
 };
 
