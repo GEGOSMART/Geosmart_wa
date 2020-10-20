@@ -1,119 +1,97 @@
 // based on https://material-ui.com/getting-started/templates/sign-in-side/
 
 import React from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 
-import logo from '../assets/img/homePage/Geosmartlogo.png';
-import logobw from '../assets/img/homePage/BWLogo.png';
+import axios from 'axios';
+import { URL } from "../redux/data/server";
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    background: 'blue',
-    border: 'black',
-    //'margin-top': '200px',
-    background: '#3497d4',
-    //'border-radius': '40px'
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
   },
-  item: {
-    // background: 'red',
-    width: '100%',
-    background: '#3F51B5',
-    'textAlign': 'center',
-    'borderRadius': '5px',
-    'marginTop': '120px'
+  body: {
+    fontSize: 14,
   },
-  center: {
-    cursor: 'pointer',
-    display: 'center',
-    justifyContent: 'center',
-    'margin': 'auto',
-    width: '250px',
-    'float': 'left'
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
   },
-  table:{
-    width:'100%',
-    display:'table'
+}))(TableRow);
+
+
+var rows = [
+  axios.post(URL, {
+      query: `
+       query{
+         bestScoreByGame(ID_Game: "1"){
+           ID
+           ID_User
+           Score
+           DatePlayed
+           ID_Game
+         }
+       }        
+               
+     `
+      }
+    ).catch(err => {
+      console.error(err)
+    })
+  ]
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 700,
   },
-  top:{
-    display: 'table-cell',
-    position: 'relative',
-    width:'100%',
-    height: '100px',
-    'background-color': 'rgba(89,144,222,.6)',
-    'vertical-align':'middle'
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+});
 
-
-
-const HomePage = () => {
-
-  let history = useHistory();
-  const routeChange1 = () =>{
-    let path = `./login`;
-    history.push(path);
-  }
-
-  const routeChange2 = () =>{
-    let path = `./signup`;
-    history.push(path);
-  }
-
-  const show1 = () =>{
-
-  }
-
+const BestScore = () => {
   const classes = useStyles();
+
+  console.log("imprimiendo desde el metodo 1 %o",rows[0]);
+
   return (
-    <Grid
-    container
-    className={classes.container}
-  >
-    <font color = "white" size = "80">
-      <h1 style={{fontFamily: 'system-ui'}}>
-        Welcome to Geosmart app.
-      </h1>
-    </font>
-    <Grid
-      item
-      sm={12}
-      className={classes.item}
-    >
-
-      <div style={{display: 'flex', flexDirection: 'column'}}>
-        <div className ={classes.center}>
-            <img src={logo} alt="Logo" width="308" height="300"
-                    onClick={routeChange1} />
-        </div>
-        <div className ={classes.center}>
-            <img src={logobw} alt="Logo2" width="328" height="320"
-                    onClick={routeChange2}
-                    onmouseover={<p>Signup</p>}/>
-        </div>
-      </div>
-    </Grid>
-
-    <Grid>
-      <font color = "white" face = "Garamond">
-        <h2 style={{fontFamily: 'system-ui'}}>
-          Learn Geography by Playing!
-        </h2>
-        <h2 style={{fontFamily: 'system-ui'}}>
-          Click the color logo to login, or the black and white logo to sign up.
-        </h2>
-      </font>
-    </Grid>
-  </Grid>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>ID</StyledTableCell>
+            <StyledTableCell>Username</StyledTableCell>
+            <StyledTableCell align="right">Score</StyledTableCell>
+            <StyledTableCell align="right">Date</StyledTableCell>
+            <StyledTableCell align="right">Game</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.forEach(element => 
+            <StyledTableRow key={element.ID}>
+            <StyledTableCell component="th" scope="row">
+              {element.ID}
+            </StyledTableCell>
+            <StyledTableCell align="right">{element.ID_User}</StyledTableCell>
+            <StyledTableCell align="right">{element.Score}</StyledTableCell>
+            <StyledTableCell align="right">{element.DatePlayed}</StyledTableCell>
+            <StyledTableCell align="right">{element.ID_Game}</StyledTableCell>
+          </StyledTableRow>)}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
-};
+}
 
 const mapStateToProps = (state) => { //get user in the store
   return {
@@ -122,4 +100,4 @@ const mapStateToProps = (state) => { //get user in the store
 };
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(BestScore);
