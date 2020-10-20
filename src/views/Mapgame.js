@@ -72,7 +72,7 @@ const GoogleMapComp = withGoogleMap(props => {
        defaultCenter={props.center}
        defaultZoom={2}
        defaultOptions={{
-            zoomControl: false, styles: [mapStyles, st]
+            zoomControl: false, styles: [mapStyles]
         }}>
       {items}
      </GoogleMap>
@@ -108,7 +108,10 @@ class Mapgame extends React.Component {
         `
       })
     console.log(questions)
-    return this.setState({questions: questions.data.data.countriesByContinent})
+    if(questions &&  questions.data &&  questions.data.data.countriesByContinent){
+      return this.setState({questions: questions.data.data.countriesByContinent})
+    }
+
   }
 
   async insertScore(id_user, score, date_played, id_game){
@@ -124,7 +127,7 @@ class Mapgame extends React.Component {
                  message
             }
           }
-                 
+
           `
         }
       ).catch(err => {
