@@ -115,7 +115,8 @@ class Mapgame extends React.Component {
   }
 
   async insertScore(id_user, score, date_played, id_game){
-    await axios.post(URL, {
+    console.log('insert score on map game. score: '+score)
+    var insertedScore = await axios.post(URL, {
         query: `
         mutation{
             createScore(score:{
@@ -133,6 +134,7 @@ class Mapgame extends React.Component {
       ).catch(err => {
         console.error(err)
       })
+      console.log(insertedScore)
    }
 
   componentDidMount() {
@@ -153,15 +155,10 @@ class Mapgame extends React.Component {
        acertado = true;
     }
 
-    this.getQuestions()
-    return this.setState({score: this.state.score + points, mostrar_boton_next: true, correct_selected: acertado});
-  }
-
-  nextQuestion(){
-    if(this.state.current_question + 1 >= this.state.questions.length){
+    if(this.state.current_question + 1 >= this.state.gameLength){
       //save score
       //var id_user = this.state.user._id;
-      var total_score = this.state.score + 1;
+      var total_score = this.state.score + points + 1;
       var date_played = new Date();
       var id_game = "2";
 
@@ -170,6 +167,12 @@ class Mapgame extends React.Component {
       //...
       //
    }
+
+    this.getQuestions()
+    return this.setState({score: this.state.score + points, mostrar_boton_next: true, correct_selected: acertado});
+  }
+
+  nextQuestion(){
 
     return this.setState({current_question: this.state.current_question + 1, mostrar_boton_next: false, correct_selected: false});
   }
