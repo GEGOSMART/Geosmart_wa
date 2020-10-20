@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { connect } from "react-redux";
 import Trofeo from '../assets/img/trofeo.jpg';
-import createscore from '../redux/actions/createscore'
+import score from '../redux/actions/createscore'
 import Loader from '../components/Loader/Loader.js'
 
 import axios from 'axios';
@@ -18,7 +18,7 @@ import { URL } from "../redux/data/server";
 
 const question_points = 100;
 
-class Questions extends React.Component {
+class Questions extends React.Component  {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,6 +73,27 @@ class Questions extends React.Component {
       ]
     };
   }
+  async insertScore(id_user, score, date_played, id_game){
+   await axios.post(URL, {
+        query: `
+        mutation{
+            createScore(score:{
+                       ID_User: "${id_user}",
+                       Score: ${score},
+                       DatePlayed: "${date_played}",
+                       ID_Game: "${id_game}"
+            }){
+                 message
+            }
+          }
+                 
+          `
+        }
+      ).catch(err => {
+        console.error(err)
+      })
+
+   }
 
 async getQuestions(){
   console.log(this.props.location.gametype)
@@ -106,31 +127,6 @@ async getQuestions(){
     })
   console.log(questions)
   return this.setState({questions: questions.data.data.gameQuestions.preguntas})
- }
-
- async insertScore(id_user, score, date_played, id_game){
-  const scoreFunc = await axios.post(URL, {
-      query: `
-      mutation{
-          createScore(score:{
-                     ID_User: "${id_user}",
-                     Score: "${score}",
-                     DatePlayed: "${date_played}",
-                     ID_Game: "${id_game}"
-          }){
-               message
-          }
-        }
-               
-        `
-      }
-    ).catch(err => {
-      console.error(err)
-    });
-
-    createscore(id_user, score, date_played, id_game);
-    
-    console.log(scoreFunc);
  }
 
 

@@ -117,7 +117,7 @@ class Mapgame extends React.Component {
         mutation{
             createScore(score:{
                        ID_User: "${id_user}",
-                       Score: "${score}",
+                       Score: ${score},
                        DatePlayed: "${date_played}",
                        ID_Game: "${id_game}"
             }){
