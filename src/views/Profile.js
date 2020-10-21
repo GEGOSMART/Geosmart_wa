@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import { useHistory } from "react-router-dom";
 
 import avatar from "../assets/img/marc.jpg";
 
@@ -39,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = ({ user }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
@@ -48,7 +51,7 @@ const Profile = ({ user }) => {
           <Grid item xs={3}>
             <CardMedia
               className={classes.profile_image}
-              image={avatar}
+              image={user.profile_picture}
               title="Profile picture"
             />
           </Grid>
@@ -106,6 +109,15 @@ const Profile = ({ user }) => {
                       { user.country }
                     </Typography>
                     <img src={user.flag} alt="Logo" height="7%" />
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                      onClick={() => history.push({pathname:"/update-user"})}
+                    >
+                      update
+                    </Button>
                   </Grid>
                 </div>
               </CardContent>

@@ -28,11 +28,10 @@ const LoginPage = ({ loginUser }) => {
   const classes = Styles();
   const history = useHistory();
 
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     //loggear al usuario
-    try {
-      const user_object = await axios.post(URL, {
+      axios.post(URL, {
         query: `
           mutation {
             loginUser(user: {
@@ -46,27 +45,23 @@ const LoginPage = ({ loginUser }) => {
               country
               profile_picture
               created_at
+              flag
               token
             }
           }
         `
       })
-
-      if (user_object.status) {
-        const country_flag = await axios.get(
-          `https://restcountries.eu/rest/v2/name/${user_object.data.data.loginUser.country}`
-        );
-
-        user_object.data.data.loginUser.flag = country_flag.data.[0].flag;
-        loginUser(user_object.data.data.loginUser);
-        history.push({pathname:"/games"})
-      } else {
+      .then(response => {
+        if (response.status === 200) {
+          loginUser(response.data.data.loginUser);
+          history.push({pathname:"/games"})
+        } else {
+          alert("Ups! Something went wrong");
+        }
+      })
+      .catch(() => {
         alert("Ups! Something went wrong");
-      }
-    }
-    catch(err) {
-     console.log(err)
-   }
+      });
   }
 
   return (

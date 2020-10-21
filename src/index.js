@@ -9,24 +9,26 @@ import Home from './views/HomePage';
 import Games from  './views/Games';
 import Questions from  './views/Questions';
 import Profile from './views/Profile';
-import Mapgame from './views/Mapgame'
-import Navbar from './components/Navbar'
+import UpdateUser from './views/UpdateUser';
+import Mapgame from './views/Mapgame';
+import Navbar from './components/Navbar';
 // redux store
-import store from  './redux/store'
+import store from  './redux/store';
 
 const Root = (
   <Provider store={store}>
     <BrowserRouter>
       <Navbar />
       <Switch>
+      <Route path="/home" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/home" component={Home} />
         <Route path="/games" component={Games} />
         <Route path="/play/map" component={Mapgame} />
         <Route path="/play/flags" component={Questions} />
         <Route path="/play/places" component={Questions} />
         <Route path="/profile" component={Profile} />
+        <Route path="/update-user" component={UpdateUser} />
         <Redirect from="/" to="home" />
       </Switch>
     </BrowserRouter>
