@@ -9,6 +9,7 @@ import Home from './views/HomePage';
 import Games from  './views/Games';
 import Questions from  './views/Questions';
 
+import Profile from './views/Profile';
 import UpdateUser from './views/UpdateUser';
 import Mapgame from './views/Mapgame';
 import Navbar from './components/Navbar';

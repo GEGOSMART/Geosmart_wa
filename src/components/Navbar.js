@@ -32,7 +32,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-    if(false){ //this.props.user == null
+    if(this.props.user == null){ //this.props.user == null
        return(
          <div style={{width: '100%', backgroundColor: '#192023', minHeight: '5em', fontFamily: 'system-ui'}}>
            <div style={{display: 'flex', flexDirection: 'row'}}>

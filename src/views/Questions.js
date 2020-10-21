@@ -86,7 +86,7 @@ class Questions extends React.Component  {
                  message
             }
           }
-                 
+
           `
         }
       ).catch(err => {
@@ -135,6 +135,9 @@ async getQuestions(){
       if(!this.props.location.gametype){
          return this.props.history.push('/games')
       }
+      if(!this.props.user){
+         return this.props.history.push('/home')
+      }
       this.getQuestions();
 
     }
@@ -176,7 +179,7 @@ async getQuestions(){
        //...
        //
     }
-    
+
 
     return this.setState({current_question: this.state.current_question + 1, mostrar_boton_next: false, correct_selected: false})
   }
