@@ -1,10 +1,52 @@
 import React from 'react'
+import axios from 'axios'
 import Birb from '../../../assets/img/birb.jpg'
 import GeoLogo from '../../../assets/img/geosmart_logo.jpg'
 import UserImage from '../../../assets/img/user.png'
+import Contact from '../Contact'
 
-const Sidepanel = (props) => (
-    <div id="sidepanel">
+class Sidepanel extends React.Component {
+
+    state = { 
+        chats: [],
+    }
+
+    componentDidMount() {
+        this.getUserChats()
+    }
+
+    getUserChats = () => {
+        axios.defaults.headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+            //Authorization: `Token ${token}`
+        };
+
+        axios.get(`http://127.0.0.1:8000/chat/history/`)
+        .then(res => {
+            console.log(res.data);
+            console.log("Hoooooolllaaaaaa");
+            this.setState({
+                chats: res.data
+            });
+        });
+    }
+
+    render(){
+        const activeChats = this.state.chats.map(c => {
+            return (
+                <Contact 
+                    key ={c.id}
+                    name ={c.id}
+                    picURL={GeoLogo}
+                    status="online"
+                    chatURL={`/chat/${c.id}`}
+                    />
+            )
+        })
+
+        return(
+            <div id="sidepanel">
         <div id="profile">
             <div className="wrap">
                 <img id="profile-img" src={UserImage} className="online" alt="" />
@@ -34,7 +76,8 @@ const Sidepanel = (props) => (
         </div>
         <div id="contacts">
             <ul>
-                <li className="contact">
+                {activeChats}
+                {/* <li className="contact">
                     <div className="wrap">
                         <span className="contact-status busy"></span>
                         <img src={Birb} alt="" />
@@ -53,7 +96,7 @@ const Sidepanel = (props) => (
                             <p className="preview" id="group-lobby">group description.</p>
                         </div>
                     </div>
-                </li>
+                </li> */}
             </ul>
         </div>
         <div id="bottom-bar">
@@ -61,7 +104,9 @@ const Sidepanel = (props) => (
             <button id="settings"><i className="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
         </div>
     </div>
+        );
+    }
+}
 
-)
 
 export default Sidepanel;

@@ -14,9 +14,10 @@ class WebSocketService {
         this.socketRef = null;
     }
 
-    connect(){
-        //const path = 'ws://127.0.0.1:8000/ws/chat/test/'; //For Localhost
-        const path = 'ws://18.210.193.21:8000/ws/chat/test/' //For remote node's static IP
+    connect(chatUrl){
+        //const path = `ws://127.0.0.1:8000/ws/chat/${chatUrl}/`; //For Localhost
+        const path = `ws://18.210.193.21:/ws/chat/${chatUrl}/`; //For remote node's static IP
+        console.log(path);
         this.socketRef = new WebSocket(path);
         this.socketRef.onopen = () => {
             console.log('websocket open');
@@ -53,8 +54,12 @@ class WebSocketService {
         }
     }
 
-    fetchMessages(username){
-        this.sendMessage({command: 'buscar_mensajes', username: username});
+    fetchMessages(username, chatId){
+        this.sendMessage({
+            command: 'buscar_mensajes', 
+            username: username,
+            chatId: chatId
+        });
     }
 
     newChatMessage(message){

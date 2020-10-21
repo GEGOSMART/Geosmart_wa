@@ -24,16 +24,28 @@ function TimeAgo(minutesAgo) {
 
 class Chat extends React.Component{
 
-    constructor(props){
-        super(props)
-        this.state = {}
+    state = { message: '' }
 
+    initializeChat(){
         this.waitForSocketConnection(() => {
             WebSocketInstance.addCallbacks(
                 this.setMessages.bind(this),
                 this.addMessage.bind(this));
-            WebSocketInstance.fetchMessages(this.props.currentUser);   
+            WebSocketInstance.fetchMessages(
+                this.props.currentUser,
+                this.props.match.params.chatID
+                );   
             });
+            WebSocketInstance.connect(this.props.match.params.chatID);
+    }
+
+    constructor(props){
+        super(props)
+        this.initializeChat();
+    }
+
+    UNSAFE_componentWillReceiveProps(newProps){
+       console.log(newProps); 
     }
 
     waitForSocketConnection(callback){
@@ -83,12 +95,17 @@ class Chat extends React.Component{
 
     renderMessages = (messages) => {
         const currentUser = 'Miguel';
-        return messages.map(message => (
+        return messages.map((message, i, arr) => (
             <li 
                 key={message.id}
+                style={{marginBottom: arr.length - 1 === i ? '300px' : '15px'}}
                 className ={message.author === currentUser ? 'sent' : 'replies'} >
                 <img src={UserImage} alt=""/>
                 <p>
+                    <small>
+                    {message.author}
+                    </small>
+                    <br />
                     {message.content}
                     <br />
                     {TimeAgo(Math.round((new Date().getTime() - new Date(message.timestamp))/60000))}
@@ -101,6 +118,18 @@ class Chat extends React.Component{
                 </p>
             </li>
         ));
+    }
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
     }
 
     render(){
@@ -125,6 +154,9 @@ class Chat extends React.Component{
                             messages &&
                             this.renderMessages(messages)
                         }
+                        <div style={{ float:"left", clear: "both" }}
+                        ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
                     </ul>
                 </div>
                 <div className="message-input">
@@ -133,6 +165,7 @@ class Chat extends React.Component{
                         <input 
                             onChange={this.messageChangeHandler}
                             value={this.state.message}
+                            required
                             id ="chat-message-input" type="text" placeholder="Write your message..." />
                         <i className="fa fa-paperclip attachment" aria-hidden="true"></i>
                         <button id="chat-message-submit" className="submit">
