@@ -28,7 +28,27 @@ const GameCard = (gameConfiguration) => {
             { gameConfiguration.gameDescription }
           </Typography>
           {
-            gameConfiguration.disableSelect ? null :
+            gameConfiguration.mapGame ?
+              <>
+                <Tooltip title="Number of game rounds">
+                  <InputLabel style={{marginTop: '2em'}}>Number of rounds: </InputLabel>
+                </Tooltip>
+                <Select
+                  style={{width: '100%'}}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={gameConfiguration.gameValue}
+                  onChange={gameConfiguration.handleFunctionContinent}
+                >
+                  <MenuItem value={"5"}>5 rounds</MenuItem>
+                  <MenuItem value={"6"}>6 rounds</MenuItem>
+                  <MenuItem value={"7"}>7 rounds</MenuItem>
+                  <MenuItem value={"8"}>8 rounds</MenuItem>
+                  <MenuItem value={"9"}>9 rounds</MenuItem>
+                  <MenuItem value={"10"}>10 rounds</MenuItem>
+                </Select>
+              </>
+             :
               <>
                 <Tooltip title="Restrict game questions to a given continent">
                   <InputLabel style={{marginTop: '2em'}}>Only questions from: </InputLabel>
@@ -44,7 +64,7 @@ const GameCard = (gameConfiguration) => {
                   <MenuItem value={"America"}>America</MenuItem>
                   <MenuItem value={"Asia"}>Asia</MenuItem>
                   <MenuItem value={"Africa"}>África</MenuItem>
-                  <MenuItem value={"Europa"}>Europe</MenuItem>
+                  <MenuItem value={"Europe"}>Europe</MenuItem>
                   <MenuItem value={"Oceania"}>Oceania</MenuItem>
                 </Select>
               </>

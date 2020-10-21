@@ -54,6 +54,7 @@ const LoginPage = ({ loginUser }) => {
       .then(response => {
         if (response.status === 200) {
           loginUser(response.data.data.loginUser);
+
           history.push({pathname:"/games"})
         } else {
           alert("Ups! Something went wrong");

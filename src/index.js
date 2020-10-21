@@ -8,10 +8,12 @@ import Signup from './views/SignupPage';
 import Home from './views/HomePage';
 import Games from  './views/Games';
 import Questions from  './views/Questions';
-import Profile from './views/Profile';
+
 import UpdateUser from './views/UpdateUser';
 import Mapgame from './views/Mapgame';
 import Navbar from './components/Navbar';
+import BestScores from  './views/BestScores';
+
 // redux store
 import store from  './redux/store';
 
@@ -27,8 +29,11 @@ const Root = (
         <Route path="/play/map" component={Mapgame} />
         <Route path="/play/flags" component={Questions} />
         <Route path="/play/places" component={Questions} />
+        <Route path="/bestscores" component={BestScores} />
+
         <Route path="/profile" component={Profile} />
         <Route path="/update-user" component={UpdateUser} />
+
         <Redirect from="/" to="home" />
       </Switch>
     </BrowserRouter>

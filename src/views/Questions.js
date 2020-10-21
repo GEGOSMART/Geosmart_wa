@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { connect } from "react-redux";
 import Trofeo from '../assets/img/trofeo.jpg';
-import createscore from '../redux/actions/createscore'
+import score from '../redux/actions/createscore'
 import Loader from '../components/Loader/Loader.js'
 
 import axios from 'axios';
@@ -18,7 +18,7 @@ import { URL } from "../redux/data/server";
 
 const question_points = 100;
 
-class Questions extends React.Component {
+class Questions extends React.Component  {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,6 +73,27 @@ class Questions extends React.Component {
       ]
     };
   }
+  async insertScore(id_user, score, date_played, id_game){
+   await axios.post(URL, {
+        query: `
+        mutation{
+            createScore(score:{
+                       ID_User: "${id_user}",
+                       Score: ${score},
+                       DatePlayed: "${date_played}",
+                       ID_Game: "${id_game}"
+            }){
+                 message
+            }
+          }
+                 
+          `
+        }
+      ).catch(err => {
+        console.error(err)
+      })
+
+   }
 
 async getQuestions(){
   console.log(this.props.location.gametype)
@@ -82,6 +103,7 @@ async getQuestions(){
   if(continent === "Global"){
      continent = ""; //no continent in particular
   }
+
   const questions = await axios.post(URL, {
   query: `
     query {
@@ -96,6 +118,7 @@ async getQuestions(){
           optionC
           optionD
           continent
+          image
           ans
         }
        }
@@ -104,7 +127,8 @@ async getQuestions(){
     })
   console.log(questions)
   return this.setState({questions: questions.data.data.gameQuestions.preguntas})
-}
+ }
+
 
   componentDidMount() {
       console.log(this.props.location)
@@ -121,6 +145,7 @@ async getQuestions(){
   }
 
   componentWillUnmount() {}
+
 
   chooseAnswer(question, answer) {
     let points = 0;
@@ -139,16 +164,19 @@ async getQuestions(){
 
   nextQuestion(){
 
-    if(this.state.current_question + 1  >= this.state.questions.length){
+    if(this.state.current_question + 1 >= this.state.questions.length){
        //save score
        //var id_user = this.state.user._id;
        var total_score = this.state.score + 1;
        var date_played = new Date();
        var id_game = "1";
 
+       this.insertScore("prueba", total_score, date_played, id_game);
+
        //...
        //
     }
+    
 
     return this.setState({current_question: this.state.current_question + 1, mostrar_boton_next: false, correct_selected: false})
   }
@@ -219,7 +247,7 @@ async getQuestions(){
               <Card style={{margin:'0 auto'}} elevation={10}>
                 <CardActionArea style={{marginTop: '2em', minWidth: '45em'}}>
                   <CardMedia
-                    style={{height: 140, width: 140, margin: '0 auto'}}
+                    style={{height: 140, width: 200, margin: '0 auto'}}
                     image={question.image}
                     title="Contemplative Reptile"/>
                   <CardContent>
