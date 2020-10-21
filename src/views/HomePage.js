@@ -88,6 +88,7 @@ const HomePage = () => {
       className={classes.item}
     >
 
+
       <div style={{display: 'flex', flexDirection: 'column'}}>
         <div className ={classes.center}>
             <img src={logo} alt="Logo" width="308" height="300"
@@ -99,6 +100,7 @@ const HomePage = () => {
                     onmouseover={<p>Signup</p>}/>
         </div>
       </div>
+
     </Grid>
 
     <Grid>
