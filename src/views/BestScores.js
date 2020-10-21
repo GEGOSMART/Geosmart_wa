@@ -1,6 +1,6 @@
 // based on https://material-ui.com/getting-started/templates/sign-in-side/
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -40,8 +40,8 @@ const useStyles = makeStyles({
 
 const BestScore = () => {
   const classes = useStyles();
-
-  var rows = [];
+  const [rows, setRows] = useState(0);
+  //var rows = [];
 
   async function getScores() {
     try {
@@ -55,28 +55,26 @@ const BestScore = () => {
              DatePlayed
              ID_Game
            }
-         }        
-                 
+         }
+
        `
       })
-  
+
       if (score_object.status === 200) {
-        return score_object.data.data.bestScoreByGame;
+        return setRows(score_object.data.data.bestScoreByGame);
       } else {
         alert("Ups! Something went wrong");
       }
     } catch(err) {
       console.error(err)
     }
-  } 
+  }
 
   useEffect(() => {
-    getScores().then(e => {
-      rows.push(e)
-    });
-
+    getScores()
     console.log(rows);
-  });
+  }, [] )
+
 
   return (
     <TableContainer component={Paper}>
@@ -91,7 +89,7 @@ const BestScore = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(element => 
+          {rows ? rows.map(element =>
             <StyledTableRow key={element.ID}>
             <StyledTableCell component="th" scope="row">
               {element.ID}
@@ -100,7 +98,7 @@ const BestScore = () => {
             <StyledTableCell align="right">{element.Score}</StyledTableCell>
             <StyledTableCell align="right">{element.DatePlayed}</StyledTableCell>
             <StyledTableCell align="right">{element.ID_Game}</StyledTableCell>
-          </StyledTableRow>)}
+          </StyledTableRow>) : null}
         </TableBody>
       </Table>
     </TableContainer>
