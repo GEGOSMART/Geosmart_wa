@@ -30,13 +30,16 @@ const LoginPage = ({ loginUser }) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    //loggear al usuario
+    if(username.trim().length === 0 || password.trim().length === 0) {
+      alert("All fields must be filled");
+    } else {
+      //loggear al usuario
       axios.post(URL, {
         query: `
           mutation {
             loginUser(user: {
-              username: "${username}"
-              password: "${password}"
+              username: "${username.trim()}"
+              password: "${password.trim()}"
             }) {
               _id
               firstname
@@ -63,6 +66,9 @@ const LoginPage = ({ loginUser }) => {
       .catch(() => {
         alert("Ups! Something went wrong");
       });
+    }
+
+    return;
   }
 
   return (

@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Input from '@material-ui/core/Input';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -27,8 +22,7 @@ const UpdateUser = ({ user, updateUser }) => {
   const [password, setPassword] = useState('');
   const [npassword, setNpassword] = useState('');
   const [country, setCountry] = useState('');
-  const [profile_picture, setProfilePicture] = useState(null);
-  const [flag, setFlag] = useState('');
+  const [profile_picture, setProfilePicture] = useState('');
   const classes = Styles();
 
   async function handleSubmit(event) {
@@ -43,60 +37,55 @@ const UpdateUser = ({ user, updateUser }) => {
               username.trim().length === 0 &&
               npassword.trim().length === 0 &&
               country.trim().length === 0 &&
-              profile_picture === null) {
+              profile_picture === null
+            ) {
       alert("you need to have at least one field filled in addition to the password");
     } else {
-      if(country.trim().length !== 0) {
-        const flag_res = await axios.get(
+      try {
+        const flag = await axios.get(
           `https://restcountries.eu/rest/v2/name/${country}`
         );
-
-        console.log(flag_res);
-
-        await setFlag(flag_res.data[0].flag);
-      }
-
-      axios.post(URL, {
-        query: `
-          mutation {
-            updateUser(id: "${user._id}", user: {
-              firstname: "${firstname.trim()}"
-              lastname: "${lastname.trim()}"
-              username: "${username.trim()}"
-              password: "${password.trim()}"
-              new_password: "${npassword.trim()}"
-              country: "${country.trim()}"
-              profile_picture: "${profile_picture}"
-              flag: "${flag}"
-            }) {
-              _id
-              firstname
-              lastname
-              username
-              country
-              profile_picture
-              created_at
-              flag
+          
+        const user_object = await axios.post(URL, {
+          query: `
+            mutation {
+              updateUser(id: "${user._id}", user: {
+                firstname: "${firstname.trim()}"
+                lastname: "${lastname.trim()}"
+                username: "${username.trim()}"
+                password: "${password.trim()}"
+                new_password: "${npassword.trim()}"
+                country: "${country.trim()}"
+                profile_picture: "${profile_picture}"
+                flag: "${flag.data[0].flag}"
+              }) {
+                _id
+                firstname
+                lastname
+                username
+                country
+                profile_picture
+                created_at
+                flag
+              }
             }
-          }
-        `
-      })
-      .then(response => {
-        if(response.status === 200) {
-          console.log(response);
-          updateUser(response.data.data.updateUser);
+          `
+        });
+
+        if(user_object.status === 200) {
+          console.log(user_object);
+          updateUser(user_object.data.data.updateUser);
           alert("User updated");
         }
-      })
-      .catch((error) => {
-        if(error.status !== 200) {
-          alert(error);
-        }
-      });
+      } catch(err) {
+        console.log(err);
+        alert("Ups! some went wrong");
+      }
     }
-
+    
     return;
-  };
+  }
+
     
   return (
     <div>

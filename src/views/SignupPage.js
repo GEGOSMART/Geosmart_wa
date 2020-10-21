@@ -28,39 +28,48 @@ const SignupPage = () => {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if(password !== cpassword) {
-      alert("The password and confirm password fields must be same");
-      return
-    }
+    if(firstname.trim().length === 0 ||
+      lastname.trim().length === 0 ||
+      username.trim().length === 0 ||
+      password.trim().length === 0 ||
+      cpassword.trim().length === 0 ||
+      country.trim().length === 0
+      ) {
+        alert("All field must be filled");
+    } else if(password.trim() !== cpassword.trim()) {
+      alert("The password and confirm password fields must be the same");
+    } else {
+      // create new user
+      try {
+        const flag = await axios.get(
+          `https://restcountries.eu/rest/v2/name/${country}`
+        );
 
-    // create new user
-    try {
-      const flag = await axios.get(
-        `https://restcountries.eu/rest/v2/name/${country}`
-      );
-
-      const message_object = await axios.post(URL, {
-         query: `
-          mutation {
-            createUser(user: {
-              firstname: "${firstname}"
-              lastname: "${lastname}"
-              username: "${username}"
-              password: "${password}"
-              country: "${country}"
-              flag: "${flag.data[0].flag}"
-              profile_picture: "https://github.com/nicrodriguezval/images/blob/main/3382926.jpg?raw=true"
-            }) {
-              message
+        const message_object = await axios.post(URL, {
+          query: `
+            mutation {
+              createUser(user: {
+                firstname: "${firstname.trim()}"
+                lastname: "${lastname.trim()}"
+                username: "${username.trim()}"
+                password: "${password.trim()}"
+                country: "${country.trim()}"
+                flag: "${flag.data[0].flag}"
+                profile_picture: "https://github.com/nicrodriguezval/images/blob/main/3382926.jpg?raw=true"
+              }) {
+                message
+              }
             }
-          }
-         `
-      });
+          `
+        });
 
-      alert(message_object.data.data.createUser.message);
-    } catch(err) {
-      console.log(err);
+        alert(message_object.data.data.createUser.message);
+      } catch(err) {
+        console.log(err);
+      }
     }
+
+    return;
   }
 
   return (

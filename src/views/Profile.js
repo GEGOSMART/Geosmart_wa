@@ -10,8 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
 
-import avatar from "../assets/img/marc.jpg";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '90vh',
@@ -109,15 +107,17 @@ const Profile = ({ user }) => {
                       { user.country }
                     </Typography>
                     <img src={user.flag} alt="Logo" height="7%" />
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                      onClick={() => history.push({pathname:"/update-user"})}
-                    >
-                      update
-                    </Button>
+                    <Grid imem xs={3} style={{marginTop: '5em'}}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={() => history.push({pathname:"/update-user"})}
+                      >
+                        update
+                      </Button>
+                    </Grid>
                   </Grid>
                 </div>
               </CardContent>

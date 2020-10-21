@@ -38,7 +38,7 @@ class Navbar extends React.Component {
            <div style={{display: 'flex', flexDirection: 'row'}}>
              <Link style={outItemLeft} to="/home">Home</Link>
              <Link style={outItemRight}to="/login">Login</Link>
-             <Link style={outItemLeft}to="/signup">Sign up</Link>
+             <Link style={outItemLeft} to="/signup">Sign up</Link>
            </div>
          </div>
        )
@@ -51,11 +51,11 @@ class Navbar extends React.Component {
           <Link className="navbtn" to="/profile">Profile</Link>
           <Link className="navbtn" to="/chat">Chat</Link>
 
-          <a style={{marginLeft: 'auto', marginRight: '1em', color: '#e91e63', textDecoration: 'none', marginTop: '0.8em',
+          <Link style={{marginLeft: 'auto', marginRight: '1em', color: '#e91e63', textDecoration: 'none', marginTop: '0.8em',
                         fontWeight: 600, fontSize: '26px', cursor: 'pointer'}}
-                onClick={()=>this.logOut()}>
+                onClick={() => this.logOut()} to="/home">
                 Log out
-          </a>
+          </Link>
         </div>
       </div>
     );

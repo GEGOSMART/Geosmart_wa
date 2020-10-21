@@ -17,9 +17,9 @@ function reducer(state = defaultState, action) {
       return state = action.payload.user_object;
     }
     case logOutUserType:{
-      console.log("Log out user")
+      console.log("Log out user");
       localStorage.removeItem('user');
-      return state = null
+      return state = null;
     }
     default:
       return state;
