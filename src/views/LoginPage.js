@@ -53,7 +53,7 @@ const LoginPage = ({ user, loginUser }) => {
           `
         })
 
-        if (user_object.status) {
+        if (user_object.status === 200) {
           loginUser(user_object.data.data.loginUser);
           history.push({pathname:"/games"})
         } else {

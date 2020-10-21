@@ -1,6 +1,6 @@
 // based on https://material-ui.com/getting-started/templates/sign-in-side/
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -32,27 +32,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-
-var rows = [
-  axios.post(URL, {
-      query: `
-       query{
-         bestScoreByGame(ID_Game: "1"){
-           ID
-           ID_User
-           Score
-           DatePlayed
-           ID_Game
-         }
-       }        
-               
-     `
-      }
-    ).catch(err => {
-      console.error(err)
-    })
-  ]
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -62,7 +41,42 @@ const useStyles = makeStyles({
 const BestScore = () => {
   const classes = useStyles();
 
-  console.log("imprimiendo desde el metodo 1 %o",rows[0]);
+  var rows = [];
+
+  async function getScores() {
+    try {
+      const score_object = await axios.post(URL, {
+        query: `
+         query{
+           bestScoreByGame(ID_Game: "1"){
+             ID
+             ID_User
+             Score
+             DatePlayed
+             ID_Game
+           }
+         }        
+                 
+       `
+      })
+  
+      if (score_object.status === 200) {
+        return score_object.data.data.bestScoreByGame;
+      } else {
+        alert("Ups! Something went wrong");
+      }
+    } catch(err) {
+      console.error(err)
+    }
+  } 
+
+  useEffect(() => {
+    getScores().then(e => {
+      rows.push(e)
+    });
+
+    console.log(rows);
+  });
 
   return (
     <TableContainer component={Paper}>
@@ -77,7 +91,7 @@ const BestScore = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.forEach(element => 
+          {rows.map(element => 
             <StyledTableRow key={element.ID}>
             <StyledTableCell component="th" scope="row">
               {element.ID}
