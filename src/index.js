@@ -18,23 +18,29 @@ import BestScores from  './views/BestScores';
 // redux store
 import store from  './redux/store';
 
+const isAutenticated = () => (localStorage.getItem('user') !== null) ? true : false;
+
+const AuthRoute = (props) => (
+  isAutenticated()
+  ? <Route {... props}/>
+  : <Redirect to="/login" />
+)
+
 const Root = (
   <Provider store={store}>
     <BrowserRouter>
       <Navbar />
       <Switch>
-      <Route path="/home" component={Home} />
-        <Route path="/login" component={Login} />
+        <Route path="/home" component={Home} />
         <Route path="/signup" component={Signup} />
-        <Route path="/games" component={Games} />
-        <Route path="/play/map" component={Mapgame} />
-        <Route path="/play/flags" component={Questions} />
-        <Route path="/play/places" component={Questions} />
-        <Route path="/bestscores" component={BestScores} />
-
-        <Route path="/profile" component={Profile} />
-        <Route path="/update-user" component={UpdateUser} />
-
+        <Route path="/login" component={Login} />
+        <AuthRoute path="/games" component={Games} />
+        <AuthRoute path="/play/map" component={Mapgame} />
+        <AuthRoute path="/play/flags" component={Questions} />
+        <AuthRoute path="/play/places" component={Questions} />
+        <AuthRoute path="/bestscores" component={BestScores} />
+        <AuthRoute path="/profile" component={Profile} />
+        <AuthRoute path="/update-user" component={UpdateUser} />
         <Redirect from="/" to="home" />
       </Switch>
     </BrowserRouter>
