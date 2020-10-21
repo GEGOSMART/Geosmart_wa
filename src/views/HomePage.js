@@ -94,7 +94,7 @@ const HomePage = () => {
     <div className ={classes.center}>
         <img src={logobw} alt="Logo2" width="328" height="320" 
                 onClick={routeChange2} 
-                onmouseover={<p>Signup</p>}/>
+                onMouseOver={<p>Signup</p>}/>
     </div>
     
     </Grid>

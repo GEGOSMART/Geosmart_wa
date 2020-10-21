@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import Copyright from '../components/footer/Copyright';
-import Styles from '../components/userManagement/Styles';
+import Styles from '../assets/JSS/userManagement/Styles';
 import { URL } from '../redux/data/server';
 
 const SignupPage = () => {
@@ -35,6 +35,10 @@ const SignupPage = () => {
 
     // create new user
     try {
+      const flag = await axios.get(
+        `https://restcountries.eu/rest/v2/name/${country}`
+      );
+
       const message_object = await axios.post(URL, {
          query: `
           mutation {
@@ -44,6 +48,8 @@ const SignupPage = () => {
               username: "${username}"
               password: "${password}"
               country: "${country}"
+              flag: "${flag.data[0].flag}"
+              profile_picture: "https://github.com/nicrodriguezval/images/blob/main/3382926.jpg?raw=true"
             }) {
               message
             }
