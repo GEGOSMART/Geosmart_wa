@@ -47,6 +47,8 @@ const UpdateUser = ({ user, updateUser }) => {
           flag = await axios.get(
             `https://restcountries.eu/rest/v2/name/${country}`
           );
+
+          flag = flag.data[0].flag;
         }
           
         const user_object = await axios.post(URL, {
@@ -60,7 +62,7 @@ const UpdateUser = ({ user, updateUser }) => {
                 new_password: "${npassword.trim()}"
                 country: "${country.trim()}"
                 profile_picture: "${profile_picture}"
-                flag: "${flag.data[0].flag}"
+                flag: "${flag}"
               }) {
                 _id
                 firstname
