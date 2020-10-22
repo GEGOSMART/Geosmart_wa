@@ -42,9 +42,14 @@ const UpdateUser = ({ user, updateUser }) => {
       alert("you need to have at least one field filled in addition to the password");
     } else {
       try {
-        const flag = await axios.get(
-          `https://restcountries.eu/rest/v2/name/${country}`
-        );
+        var flag = '';
+        if(country.trim().length > 0) {
+          flag = await axios.get(
+            `https://restcountries.eu/rest/v2/name/${country}`
+          );
+
+          flag = flag.data[0].flag;
+        }
           
         const user_object = await axios.post(URL, {
           query: `
@@ -57,7 +62,7 @@ const UpdateUser = ({ user, updateUser }) => {
                 new_password: "${npassword.trim()}"
                 country: "${country.trim()}"
                 profile_picture: "${profile_picture}"
-                flag: "${flag.data[0].flag}"
+                flag: "${flag}"
               }) {
                 _id
                 firstname
@@ -85,7 +90,6 @@ const UpdateUser = ({ user, updateUser }) => {
     
     return;
   }
-
     
   return (
     <div>
@@ -104,7 +108,7 @@ const UpdateUser = ({ user, updateUser }) => {
               margin="normal"
               type="text"
               name="firstname"
-              label="New Firsname"
+              label="New Firstname"
               id="email"
               autoComplete="firstname"
               onChange={(e) => setFirstname(e.target.value)}
