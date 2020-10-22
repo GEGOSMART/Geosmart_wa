@@ -78,9 +78,19 @@ const GameCard = (gameConfiguration) => {
                 >
           Play now
         </Button>
+
+        {/*
         <Button size="small" color="primary"  style={{color: 'white', backgroundColor: '#4CAF50', margin: '1em'}}>
           Play multiplayer
         </Button>
+        */}
+
+        <Button size="small" color="primary"  style={{color: 'white', backgroundColor: '#9C27B0', margin: '1em'}}
+                  onClick={gameConfiguration.onClickLeaderboard}
+                >
+          Leaderboard
+        </Button>
+
       </CardActions>
     </Card>
   )

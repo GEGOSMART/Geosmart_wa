@@ -108,7 +108,7 @@ class Mapgame extends React.Component {
         `
       })
     console.log(questions)
-    if(questions &&  questions.data &&  questions.data.data.countriesByContinent){
+    if(questions &&  questions.data &&  questions.data.data){
       return this.setState({questions: questions.data.data.countriesByContinent})
     }
 
@@ -142,7 +142,7 @@ class Mapgame extends React.Component {
     if(!this.props.user){
        return this.props.history.push('/home')
     }
-    
+
     if(this.props.location.rounds){
        this.setState({gameLength: this.props.location.rounds})
     }
@@ -161,12 +161,13 @@ class Mapgame extends React.Component {
 
     if(this.state.current_question + 1 >= this.state.gameLength){
       //save score
-      //var id_user = this.state.user._id;
+      var username = this.props.user.username;
       var total_score = this.state.score + points + 1;
       var date_played = new Date();
-      var id_game = "2";
+      date_played = date_played.toISOString()
+      var id_game = "1";
 
-      this.insertScore("prueba", total_score, date_played, id_game)
+      this.insertScore(username, total_score, date_played, id_game)
 
       //...
       //

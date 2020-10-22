@@ -49,7 +49,8 @@ class Navbar extends React.Component {
         <div style={{display: 'flex', flexDirection: 'row'}}>
           <Link className="navbtn" to="/games">Games</Link>
           <Link className="navbtn" to="/profile">Profile</Link>
-          <Link className="navbtn" to="/chat">Chat</Link>
+          <Link className="navbtn" to="/bestscores">Leaderboard</Link>
+          {/* <Link className="navbtn" to="/chat">Chat</Link> */}
 
           <Link style={{marginLeft: 'auto', marginRight: '1em', color: '#e91e63', textDecoration: 'none', marginTop: '0.8em',
                         fontWeight: 600, fontSize: '26px', cursor: 'pointer'}}

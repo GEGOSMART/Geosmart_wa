@@ -12,12 +12,15 @@ import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '90vh',
+    height: '100%',
+    width: '100%',
+    overflow: 'hidden',
     backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)'
   },
   paper: {
     display: 'flex',
     margin: 100,
+    padding: '2em',
     width: '100%',
     height: 500
   },

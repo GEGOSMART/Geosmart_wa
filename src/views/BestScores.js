@@ -38,17 +38,22 @@ const useStyles = makeStyles({
   },
 });
 
-const BestScore = () => {
+const BestScore = (props) => {
   const classes = useStyles();
   const [rows, setRows] = useState(0);
   //var rows = [];
 
   async function getScores() {
+    var gametype = 1;
+    if(props.location.gametype){
+       gametype = props.location.gametype;
+    }
+
     try {
       const score_object = await axios.post(URL, {
         query: `
          query{
-           bestScoreByGame(ID_Game: "1"){
+           bestScoreByGame(ID_Game: "${gametype}"){
              ID
              ID_User
              Score
@@ -59,7 +64,7 @@ const BestScore = () => {
 
        `
       })
-
+      console.log(score_object)
       if (score_object.status === 200) {
         return setRows(score_object.data.data.bestScoreByGame);
       } else {
@@ -95,9 +100,14 @@ const BestScore = () => {
               {element.ID}
             </StyledTableCell>
             <StyledTableCell align="right">{element.ID_User}</StyledTableCell>
-            <StyledTableCell align="right">{element.Score}</StyledTableCell>
+            <StyledTableCell align="right">{element.Score-1}</StyledTableCell>
             <StyledTableCell align="right">{element.DatePlayed}</StyledTableCell>
-            <StyledTableCell align="right">{element.ID_Game}</StyledTableCell>
+
+            {element.ID_Game == "1" ?   <StyledTableCell align="right">Recognize the location</StyledTableCell> : null}
+            {element.ID_Game == "2" ?   <StyledTableCell align="right">Recognize the flag</StyledTableCell> : null}
+            {element.ID_Game == "3" ?   <StyledTableCell align="right">Recognize the place</StyledTableCell> : null}
+
+
           </StyledTableRow>) : null}
         </TableBody>
       </Table>

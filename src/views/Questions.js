@@ -74,7 +74,7 @@ class Questions extends React.Component  {
     };
   }
   async insertScore(id_user, score, date_played, id_game){
-   await axios.post(URL, {
+  const scoreRequest = await axios.post(URL, {
         query: `
         mutation{
             createScore(score:{
@@ -92,6 +92,7 @@ class Questions extends React.Component  {
       ).catch(err => {
         console.error(err)
       })
+    console.log(scoreRequest)
 
    }
 
@@ -126,7 +127,10 @@ async getQuestions(){
       `
     })
   console.log(questions)
-  return this.setState({questions: questions.data.data.gameQuestions.preguntas})
+  if(questions &&  questions.data &&  questions.data.data){
+    return this.setState({questions: questions.data.data.gameQuestions.preguntas})
+  }
+
  }
 
 
@@ -169,12 +173,16 @@ async getQuestions(){
 
     if(this.state.current_question + 1 >= this.state.questions.length){
        //save score
-       //var id_user = this.state.user._id;
+       var username = this.props.user.username;
        var total_score = this.state.score + 1;
        var date_played = new Date();
-       var id_game = "1";
-
-       this.insertScore("prueba", total_score, date_played, id_game);
+       date_played = date_played.toISOString()
+       var id_game = "2";
+       if(this.props.location.gametype == "places"){
+          id_game = "3";
+       }
+       console.log(date_played)
+       this.insertScore(username, total_score, date_played, id_game);
 
        //...
        //
