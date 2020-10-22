@@ -73,7 +73,7 @@ const GameCard = (gameConfiguration) => {
       </CardActionArea>
 
       <CardActions>
-        <Button size="small" color="primary" style={{color: 'white', backgroundColor: '#00bcd4', margin: '1em'}}
+        <Button size="small" color="primary" style={{color: 'white', backgroundColor: '#00bcd4', margin: '0.5em', marginBottom: '1em'}}
                 onClick={gameConfiguration.onClickConfiguration}
                 >
           Play now
@@ -85,13 +85,13 @@ const GameCard = (gameConfiguration) => {
         </Button>
         */}
 
-        <Button size="small" color="primary"  style={{color: 'white', backgroundColor: '#9C27B0', margin: '1em'}}
+        <Button size="small" color="primary"  style={{color: 'white', backgroundColor: '#9C27B0', margin: '0.5em', marginBottom: '1em'}}
                   onClick={gameConfiguration.onClickLeaderboard}
                 >
           Leaderboard
         </Button>
 
-        <Button size="small" color="primary"  style={{color: 'white', backgroundColor: '#00008B', margin: '1em'}}
+        <Button size="small" color="primary"  style={{color: 'white', backgroundColor: '#FF5722', margin: '0.5em', marginBottom: '1em'}}
                   onClick={gameConfiguration.onClickMyRecords}
                 >
           My Records
