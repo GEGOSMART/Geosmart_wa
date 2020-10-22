@@ -91,6 +91,12 @@ const GameCard = (gameConfiguration) => {
           Leaderboard
         </Button>
 
+        <Button size="small" color="primary"  style={{color: 'white', backgroundColor: '#00008B', margin: '1em'}}
+                  onClick={gameConfiguration.onClickMyRecords}
+                >
+          My Records
+        </Button>
+
       </CardActions>
     </Card>
   )

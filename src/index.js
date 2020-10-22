@@ -14,6 +14,7 @@ import UpdateUser from './views/UpdateUser';
 import Mapgame from './views/Mapgame';
 import Navbar from './components/Navbar';
 import BestScores from  './views/BestScores';
+import MyRecords from './views/MyRecords'
 
 // redux store
 import store from  './redux/store';
@@ -41,6 +42,7 @@ const Root = (
         <AuthRoute path="/bestscores" component={BestScores} />
         <AuthRoute path="/profile" component={Profile} />
         <AuthRoute path="/update-user" component={UpdateUser} />
+        <AuthRoute path="/myrecords" component={MyRecords} />
         <Redirect from="/" to="home" />
       </Switch>
     </BrowserRouter>
