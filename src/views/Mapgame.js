@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import createscore from '../redux/actions/createscore';
+import Loader from '../components/Loader/Loader.js'
 import {
   withGoogleMap,
   withScriptjs,
