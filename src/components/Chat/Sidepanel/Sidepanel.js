@@ -15,14 +15,14 @@ class Sidepanel extends React.Component {
         this.getUserChats()
     }
 
-    getUserChats = () => {
+    getUserChats = () => { 
         axios.defaults.headers = {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
+           // "Access-Control-Allow-Origin": "*"
             //Authorization: `Token ${token}`
         };
 
-        axios.get(`http://127.0.0.1:8000/chat/history/`)
+        axios.get(`http://127.0.0.1:8000/api/chat`)
         .then(res => {
             console.log(res.data);
             console.log("Hoooooolllaaaaaa");

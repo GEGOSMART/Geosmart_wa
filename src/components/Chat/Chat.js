@@ -45,7 +45,8 @@ class Chat extends React.Component{
     }
 
     UNSAFE_componentWillReceiveProps(newProps){
-       console.log(newProps); 
+       console.log(newProps);
+       this.initializeChat();
     }
 
     waitForSocketConnection(callback){
