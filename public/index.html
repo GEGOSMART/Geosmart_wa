@@ -19,6 +19,7 @@
     <!--link rel="stylesheet" href="../src/assets/css/chat.css" /-->
 
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyC_tI-oTpBd9Ue2gzrzzRlwozcVvmv4JO8"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -27,6 +28,8 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
+      prev key AIzaSyCz5ZlhkZogFwUN5SnRZbxXmDVPfQTZu8M
+      new key AIzaSyC_tI-oTpBd9Ue2gzrzzRlwozcVvmv4JO8
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
@@ -43,6 +46,77 @@
     <title>Geosmart</title>
   </head>
   <body>
+    <style>
+      body{
+        margin: 0 !important;
+        width: 100% !important;
+      }
+
+      .map_element{
+        width: 50%;
+        height: 50%;
+        position: absolute !important;
+        border-radius: 20px;
+        margin-top: 3em;
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        text-align: center;
+        box-shadow: -1px 3px 20px 0px rgba(0,0,0,0.75);
+      }
+
+      .map_container{
+        width: 100%;
+        background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+        min-height: 60em;
+        font-family: 'system-ui';
+      }
+
+      .navbtn{
+        color: #3f97d4 !important;
+        text-decoration: none !important;
+        margin-top: 0.8em;
+        margin-left: 1em;
+        font-weight: 600;
+        font-size: 26px;
+        cursor: pointer;
+      }
+
+      .map_flexcontainer{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .score{
+        color: #9C27B0;
+        font-weight: 600;
+        font-size: 2em;
+        border-radius: 12px;
+        margin-left: auto;
+        margin-right: auto;
+        background: #ff5722;
+        padding: 0.7em;
+        box-shadow: 0px 6px 6px -3px rgba(0,0,0,0.2), 0px 10px 14px 1px rgba(0,0,0,0.14), 0px 4px 18px 3px rgba(0,0,0,0.12);
+      }
+
+      .mapGameCorrect{
+        color: #07d607;
+        font-weight: 600;
+        font-size: 25px;
+        margin: 1em;
+      }
+
+      .mapGameIncorrect{
+        color: red;
+        font-weight: 600;
+        font-size: 25px;
+        margin: 1em;
+      }
+
+    </style>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root" style="width: 100%"></div>
     <!--script src="../src/index.js" style="width: 100%"></script--> 
