@@ -40,6 +40,10 @@ class WebSocketService {
         }
     }
 
+    disconnect(){
+        this.socketRef.close();
+    }
+
     socketNewMessage(data){
         const parsedData = JSON.parse(data);
         const command = parsedData.command;
@@ -63,7 +67,12 @@ class WebSocketService {
     }
 
     newChatMessage(message){
-        this.sendMessage({command: 'nuevo_mensaje', from: message.from, message: message.content})
+        this.sendMessage({
+            command: 'nuevo_mensaje', 
+            from: message.from, 
+            message: message.content,
+            chatId: message.chatId
+        });
     }
 
     addCallbacks(messagesCallback, newMessageCallback){

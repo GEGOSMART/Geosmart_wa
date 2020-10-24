@@ -45,8 +45,18 @@ class Chat extends React.Component{
     }
 
     UNSAFE_componentWillReceiveProps(newProps){
-       console.log(newProps);
-       this.initializeChat();
+       //console.log(newProps);
+       //this.initializeChat();
+       if(this.props.match.params.chatID !== newProps.match.params.chatID){
+           WebSocketInstance.disconnect();
+           this.waitForSocketConnection(() => {
+            WebSocketInstance.fetchMessages(
+                this.props.currentUser,
+                this.props.match.params.chatID
+                );   
+            });
+            WebSocketInstance.connect(newProps.match.params.chatID);
+       }
     }
 
     waitForSocketConnection(callback){
@@ -78,8 +88,9 @@ class Chat extends React.Component{
     sendMessageHandler = event =>{
         event.preventDefault();
         const messageObject = {
-            from: 'Miguel',
-            content: this.state.message
+            from: 'jhon',
+            content: this.state.message,
+            chatId: this.props.match.params.chatID
         }
         WebSocketInstance.newChatMessage(messageObject);
         this.setState({
@@ -95,7 +106,7 @@ class Chat extends React.Component{
 
 
     renderMessages = (messages) => {
-        const currentUser = 'Miguel';
+        const currentUser = 'jhon';
         return messages.map((message, i, arr) => (
             <li 
                 key={message.id}
@@ -109,7 +120,9 @@ class Chat extends React.Component{
                     <br />
                     {message.content}
                     <br />
+                    <small>
                     {TimeAgo(Math.round((new Date().getTime() - new Date(message.timestamp))/60000))}
+                    </small>
                     {/* <small>
                         
                         {

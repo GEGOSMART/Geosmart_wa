@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import Birb from '../../../assets/img/birb.jpg'
+//import Birb from '../../../assets/img/birb.jpg'
 import GeoLogo from '../../../assets/img/geosmart_logo.jpg'
 import UserImage from '../../../assets/img/user.png'
 import Contact from '../Contact'
@@ -22,10 +22,8 @@ class Sidepanel extends React.Component {
             //Authorization: `Token ${token}`
         };
 
-        axios.get(`http://127.0.0.1:8000/api/chat`)
+        axios.get(`http://127.0.0.1:8000/api/chat?username=jhon`)
         .then(res => {
-            console.log(res.data);
-            console.log("Hoooooolllaaaaaa");
             this.setState({
                 chats: res.data
             });
