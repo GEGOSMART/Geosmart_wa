@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
+import Chat from './components/Chat/Chat';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import firebase from 'firebase';
 // views
@@ -44,6 +45,7 @@ const Root = (
     <BrowserRouter>
     <Navbar />
       <Switch>
+        <Route path="/chat/:chatID/" component={Chat} />
         <Route path="/home" component={Home} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
