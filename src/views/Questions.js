@@ -9,8 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { connect } from "react-redux";
 import Trofeo from '../assets/img/trofeo.jpg';
-import score from '../redux/actions/createscore'
-import Loader from '../components/Loader/Loader.js'
+import Loader from '../components/Loader/Loader.js';
 
 import axios from 'axios';
 import { URL } from "../redux/data/server";
@@ -178,7 +177,7 @@ async getQuestions(){
        var date_played = new Date();
        date_played = date_played.toISOString()
        var id_game = "2";
-       if(this.props.location.gametype == "places"){
+       if(this.props.location.gametype === "places"){
           id_game = "3";
        }
        console.log(date_played)

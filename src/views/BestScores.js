@@ -73,13 +73,12 @@ const BestScore = (props) => {
     } catch(err) {
       console.error(err)
     }
-  }
+  };
 
   useEffect(() => {
     getScores()
     console.log(rows);
-  }, [] )
-
+  }, [] );
 
   return (
     <TableContainer component={Paper}>
@@ -103,9 +102,9 @@ const BestScore = (props) => {
             <StyledTableCell align="right">{element.Score-1}</StyledTableCell>
             <StyledTableCell align="right">{element.DatePlayed}</StyledTableCell>
 
-            {element.ID_Game == "1" ?   <StyledTableCell align="right">Recognize the location</StyledTableCell> : null}
-            {element.ID_Game == "2" ?   <StyledTableCell align="right">Recognize the flag</StyledTableCell> : null}
-            {element.ID_Game == "3" ?   <StyledTableCell align="right">Recognize the place</StyledTableCell> : null}
+            {element.ID_Game === "1" ?   <StyledTableCell align="right">Recognize the location</StyledTableCell> : null}
+            {element.ID_Game === "2" ?   <StyledTableCell align="right">Recognize the flag</StyledTableCell> : null}
+            {element.ID_Game === "3" ?   <StyledTableCell align="right">Recognize the place</StyledTableCell> : null}
 
 
           </StyledTableRow>) : null}

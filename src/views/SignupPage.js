@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -75,7 +74,6 @@ const SignupPage = () => {
   return (
     <div>
       <Grid container component="main" className={classes.root}>
-        <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
@@ -122,32 +120,32 @@ const SignupPage = () => {
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 <Grid item xs={12} sm={6}>
-                <TextField
-                  margin="normal"
-                  autoComplete="password"
-                  name="password"
-                  variant="outlined"
-                  id="password"
-                  label="Password"
-                  type="password"
-                  required
-                  fullWidth
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                  <TextField
+                    margin="normal"
+                    autoComplete="password"
+                    name="password"
+                    variant="outlined"
+                    id="password"
+                    label="Password"
+                    type="password"
+                    required
+                    fullWidth
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                <TextField
-                  margin="normal"
-                  variant="outlined"
-                  id="cpassword"
-                  label="Confirm Password"
-                  type="password"
-                  name="cpassword"
-                  autoComplete="confirm-password"
-                  required
-                  fullWidth
-                  onChange={(e) => setCpassword(e.target.value)}
-                />
+                  <TextField
+                    margin="normal"
+                    variant="outlined"
+                    id="cpassword"
+                    label="Confirm Password"
+                    type="password"
+                    name="cpassword"
+                    autoComplete="confirm-password"
+                    required
+                    fullWidth
+                    onChange={(e) => setCpassword(e.target.value)}
+                  />
                 </Grid>
                 <TextField
                   margin="normal"

@@ -45,10 +45,8 @@ class Games extends React.Component {
 
   render() {
     return (
-      <div style={{width: '100%',backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)', minHeight: '50em'}}>
+      <div style={{width: '100%',backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)', minHeight: '100vh'}}>
         <div style={{display: 'flex'}}>
-
-
           <GameCard
             gameName="Recognize the flag"
             gameDescription="Recognize to which country the indicated flag belongs"

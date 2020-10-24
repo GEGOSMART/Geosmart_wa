@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import firebase from 'firebase';
 // views
 import Login from './views/LoginPage';
 import Signup from './views/SignupPage';
@@ -18,6 +19,17 @@ import BestScores from  './views/BestScores';
 // redux store
 import store from  './redux/store';
 
+firebase.initializeApp({
+  apiKey: "AIzaSyCUVk6-gHqGlZyiFoPIc_32QuIymP8O82c",
+  authDomain: "geosmart-4830e.firebaseapp.com",
+  databaseURL: "https://geosmart-4830e.firebaseio.com",
+  projectId: "geosmart-4830e",
+  storageBucket: "geosmart-4830e.appspot.com",
+  messagingSenderId: "715331075251",
+  appId: "1:715331075251:web:1cc463262287da9c49c4c6",
+  measurementId: "G-T3PHV83EH2"
+});
+
 const isAutenticated = () => (localStorage.getItem('user') !== null) ? true : false;
 
 const AuthRoute = (props) => (
@@ -29,7 +41,7 @@ const AuthRoute = (props) => (
 const Root = (
   <Provider store={store}>
     <BrowserRouter>
-      <Navbar />
+    <Navbar />
       <Switch>
         <Route path="/home" component={Home} />
         <Route path="/signup" component={Signup} />

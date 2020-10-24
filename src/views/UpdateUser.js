@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import firebase from 'firebase';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import UpdateIcon from '@material-ui/icons/Update';
 import Container from '@material-ui/core/Container';
+import Input from '@material-ui/core/Input';
+import AddIcon from "@material-ui/icons/Publish";
 
 import updateUser from '../redux/actions/updateUser';
 import Copyright from '../components/footer/Copyright';
@@ -23,7 +25,29 @@ const UpdateUser = ({ user, updateUser }) => {
   const [npassword, setNpassword] = useState('');
   const [country, setCountry] = useState('');
   const [profile_picture, setProfilePicture] = useState('');
+  const [uploadValue, setUploadValue] = useState(0);
+  const [fileName, setFilename] = useState('');
   const classes = Styles();
+
+  function handleUpload(event) {
+    const file = event.target.files[0];
+    setFilename(file.name);
+    const storageRef = firebase.storage().ref(`/profile_picture/${user.username}`);
+    const task = storageRef.put(file);
+
+    task.on('state_changed', snapshot => {
+      let percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+      setUploadValue(percentage);
+    }, error => {
+      console.log(error.message);
+    }, () => {
+      task.snapshot.ref.getDownloadURL().then((value) => {
+        console.log(value);
+        setProfilePicture(value);
+        setUploadValue(100);
+      });
+    });
+  };
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -37,7 +61,7 @@ const UpdateUser = ({ user, updateUser }) => {
               username.trim().length === 0 &&
               npassword.trim().length === 0 &&
               country.trim().length === 0 &&
-              profile_picture === null
+              profile_picture.length === 0
             ) {
       alert("you need to have at least one field filled in addition to the password");
     } else {
@@ -89,12 +113,11 @@ const UpdateUser = ({ user, updateUser }) => {
     }
     
     return;
-  }
+  };
     
   return (
     <div>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+      <Container component="main" maxWidth="sm">
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <UpdateIcon />
@@ -171,6 +194,28 @@ const UpdateUser = ({ user, updateUser }) => {
               fullWidth
               required
             />
+            <div style={{marginTop:"1em", display: 'flex', flexDirection: 'row'}}>
+              <label htmlFor="upload-photo">
+                <Input
+                  style={{ display: "none"}}
+                  id="upload-photo"
+                  name="upload-photo"
+                  type="file"
+                  onChange={e => handleUpload(e)}
+                />
+                <Button
+                  color="primary"
+                  variant="contained"
+                  component="span"
+                  style={{backgroundColor: '#3a7ca4', marginRight: "1.5em"}}
+                >
+                  <AddIcon style={{marginRight: "2px"}}/> Upload photo
+                </Button>
+              </label>
+              <progress value={uploadValue} max="100" style={{width: "60%", marginTop:".7em"}}/>  
+            </div>
+            <Typography color="textSecondary" variant="subtitle1" style={{marginTop:'0.5em'}}>{fileName}</Typography> 
+
             <Button
               fullWidth
               variant="contained"
@@ -182,7 +227,7 @@ const UpdateUser = ({ user, updateUser }) => {
             </Button>
           </form>
         </div>
-        <Box mt={8}>
+        <Box mt={8} style={{marginBottom:"2em"}}>
           <Copyright />
         </Box>
       </Container>

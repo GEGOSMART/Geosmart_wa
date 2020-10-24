@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -12,22 +11,20 @@ import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100%',
+    height: '100vh',
     width: '100%',
     overflow: 'hidden',
-    backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)'
+    backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)',
   },
   paper: {
     display: 'flex',
     margin: 100,
-    padding: '2em',
     width: '100%',
     height: 500
   },
   profile_image: {
     width: '100%',
     height: '100%',
-    display: 'flex',
   },
   subtitle: {
     display: 'flex',
@@ -47,7 +44,6 @@ const Profile = ({ user }) => {
   return (
     <div className={classes.root}>
       <Grid container direction="row" spacing={2}>
-        <CssBaseline />
         <Card className={classes.paper}>
           <Grid item xs={3}>
             <CardMedia
@@ -59,7 +55,7 @@ const Profile = ({ user }) => {
           <Grid item xs={9}>
             <Grid direction="row" spacing={2}>
               <CardContent style={{marginLeft: '3em'}}>
-                <div style={{display: 'flex', flexDirection: 'row', marginTop: '3em'}}>
+                <div style={{display: 'flex', flexDirection: 'row', marginTop: '2em'}}>
                   <Grid item xs={6}>
                     <Typography variant="subtitle1" color="textSecondary" component="p">
                       Username

@@ -5,18 +5,11 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import createscore from '../redux/actions/createscore';
-import Loader from '../components/Loader/Loader.js'
 import {
   withGoogleMap,
-  withScriptjs,
   GoogleMap,
-  DirectionsRenderer,
   Marker
 } from "react-google-maps";
 import Trofeo from '../assets/img/trofeo.jpg'
