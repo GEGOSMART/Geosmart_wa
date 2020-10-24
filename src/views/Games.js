@@ -53,6 +53,7 @@ class Games extends React.Component {
             handleFunctionContinent={(e) => this.handle_flag_continent(e)}
             gameImage={FlagImage}
             gameValue={this.state.flag_continent}
+            onClickMyRecords={() => this.props.history.push({pathname: "/myrecords", gametype: "2"})}
             onClickLeaderboard={() => this.props.history.push({pathname: "/bestscores", gametype: "2"})}
             onClickConfiguration={() => this.props.history.push({pathname: "/play/flags", filter: this.state.flag_continent, gametype: "flags"})}
             />
@@ -64,6 +65,7 @@ class Games extends React.Component {
             handleFunctionContinent={(e) => this.handle_map_rounds(e)}
             gameImage={MapImage}
             gameValue={this.state.map_rounds}
+            onClickMyRecords={() => this.props.history.push({pathname: "/myrecords", gametype: "1"})}
             onClickLeaderboard={() => this.props.history.push({pathname: "/bestscores", gametype: "1"})}
             onClickConfiguration={() => this.props.history.push({pathname: "/play/map", rounds: this.state.map_rounds})}
             />
@@ -74,6 +76,7 @@ class Games extends React.Component {
             handleFunctionContinent={(e) => this.handle_place_continent(e)}
             gameImage={PlaceImage}
             gameValue={this.state.place_continent}
+            onClickMyRecords={() => this.props.history.push({pathname: "/myrecords", gametype: "3"})}
             onClickLeaderboard={() => this.props.history.push({pathname: "/bestscores", gametype: "3"})}
             onClickConfiguration={() => this.props.history.push({pathname: "/play/places", filter: this.state.place_continent, gametype: "places"})}
             />

@@ -36,6 +36,14 @@ const mapStyles = {
     ]
 }
 
+const mapStylesFull = {
+    featureType: "all",
+    elementType: "labels",
+    stylers: [
+        { visibility: "off" }
+    ]
+}
+
 const st = {
     "featureType": "all",
     "stylers": [
@@ -66,7 +74,7 @@ const GoogleMapComp = withGoogleMap(props => {
        defaultCenter={props.center}
        defaultZoom={2}
        defaultOptions={{
-            zoomControl: false, styles: [mapStyles]
+            zoomControl: false, styles: [mapStylesFull]
         }}>
       {items}
      </GoogleMap>
