@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 
-import Copyright from '../components/footer/Copyright';
+import Copyright from '../components/Footer/Copyright';
 import Styles from '../assets/JSS/userManagement/Styles';
 import loginUser from '../redux/actions/loginUser';
 import { URL } from "../redux/data/server";
@@ -31,7 +31,7 @@ const LoginPage = ({ loginUser }) => {
     event.preventDefault();
     if(username.trim().length === 0 || password.trim().length === 0) {
       alert("All fields must be filled");
-    } else {
+    } else { 
       //loggear al usuario
       axios.post(URL, {
         query: `

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import logoutUser from '../redux/actions/logoutUser';
+import WebSocketInstance from '../websocket';
 
 const outItemLeft = {
   marginLeft: '0.6em', marginRight: '1em', color: '#dfdada', textDecoration: 'none', marginTop: '0.8em',
@@ -24,7 +25,10 @@ class Navbar extends React.Component {
 
   componentDidMount() {
     console.log("Usuario "+JSON.stringify(this.props.user))
+  }
 
+  componentDidUpdate(){
+    WebSocketInstance.disconnect();
   }
 
   logOut(){
@@ -50,7 +54,7 @@ class Navbar extends React.Component {
           <Link className="navbtn" to="/games">Games</Link>
           <Link className="navbtn" to="/profile">Profile</Link>
           <Link className="navbtn" to="/update-user">Update info</Link>
-          {/* <Link className="navbtn" to="/chat">Chat</Link> */}
+          <Link className="navbtn" to="/chat/lobby" replace >Chat</Link>
 
           <Link style={{marginLeft: 'auto', marginRight: '1em', color: '#e91e63', textDecoration: 'none', marginTop: '0.8em',
                         fontWeight: 600, fontSize: '26px', cursor: 'pointer'}}

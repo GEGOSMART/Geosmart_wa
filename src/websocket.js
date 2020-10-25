@@ -15,8 +15,8 @@ class WebSocketService {
     }
 
     connect(chatUrl){
-        const path = `ws://127.0.0.1:8000/ws/chat/${chatUrl}/`; //For Localhost
-        //const path = `ws://18.210.193.21:/ws/chat/${chatUrl}/`; //For remote node's static IP
+        //const path = `ws://127.0.0.1:8000/ws/chat/${chatUrl}/`; //For Localhost
+        const path = `ws://18.210.193.21:8000/ws/chat/${chatUrl}/`; //For remote node's static IP
         console.log(path);
         this.socketRef = new WebSocket(path);
         this.socketRef.onopen = () => {

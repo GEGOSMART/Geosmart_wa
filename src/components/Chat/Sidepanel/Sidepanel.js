@@ -4,6 +4,7 @@ import axios from 'axios'
 import GeoLogo from '../../../assets/img/geosmart_logo.jpg'
 import UserImage from '../../../assets/img/user.png'
 import Contact from '../Contact'
+import { connect } from 'react-redux';
 
 class Sidepanel extends React.Component {
 
@@ -21,8 +22,9 @@ class Sidepanel extends React.Component {
            // "Access-Control-Allow-Origin": "*"
             //Authorization: `Token ${token}`
         };
-
-        axios.get(`http://127.0.0.1:8000/api/chat?username=jhon`)
+        console.log(this.props.user.username)
+        //axios.get(`http://127.0.0.1:8000/api/chat?username=${this.props.user.username}`) //localhost
+        axios.get(`http://18.210.193.21:8000/api/chat?username=${this.props.user.username}`) //remote node
         .then(res => {
             this.setState({
                 chats: res.data
@@ -43,12 +45,14 @@ class Sidepanel extends React.Component {
             )
         })
 
+        var user = this.props.user;
+
         return(
             <div id="sidepanel">
         <div id="profile">
             <div className="wrap">
-                <img id="profile-img" src={UserImage} className="online" alt="" />
-                <p id="profile-name">username</p>
+                <img id="profile-img" src={user.profile_picture} className="online" alt="" />
+        <p id="profile-name">{user.username}</p>
                 <i className="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                 <div id="status-options">
                     <ul>
@@ -98,7 +102,7 @@ class Sidepanel extends React.Component {
             </ul>
         </div>
         <div id="bottom-bar">
-            <button id="addcontact"><i className="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span></button>
+            <button id="addcontact"><i className="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add chat</span></button>
             <button id="settings"><i className="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
         </div>
     </div>
@@ -107,4 +111,11 @@ class Sidepanel extends React.Component {
 }
 
 
-export default Sidepanel;
+const mapStateToProps = (state) => { // get user in the redux store
+    return {
+      user: state.user,
+    };
+  };
+
+//export default Sidepanel;
+export default connect(mapStateToProps, {})(Sidepanel)

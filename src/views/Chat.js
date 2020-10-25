@@ -4,9 +4,9 @@ import WebSocketInstance from '../websocket';
 
 class Chat extends React.Component{
 
-  componentDidMount(){
-    WebSocketInstance.connect();
-  }
+  // componentDidMount(){
+  //   WebSocketInstance.connect();
+  // }
 
   render(){
     return <ChatComponent/>

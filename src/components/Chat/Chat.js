@@ -4,6 +4,8 @@ import Sidepanel from './Sidepanel/Sidepanel'
 import GeoLogo from '../../assets/img/geosmart_logo.jpg'
 import UserImage from '../../assets/img/user.png'
 import WebSocketInstance from '../../websocket';
+import { connect } from 'react-redux';
+
 
 function TimeAgo(minutesAgo) {
         
@@ -22,15 +24,23 @@ function TimeAgo(minutesAgo) {
     }
 }
 
+function roomnameText(roomname){
+    if(roomname === 'lobby'){
+        return "Elija el grupo de chat en la parte izquierda...";
+    } else {
+        return roomname;
+    }
+}
+
 class Chat extends React.Component{
 
     state = { message: '' }
 
     initializeChat(){
         this.waitForSocketConnection(() => {
-            WebSocketInstance.addCallbacks(
-                this.setMessages.bind(this),
-                this.addMessage.bind(this));
+                WebSocketInstance.addCallbacks(
+                    this.setMessages.bind(this),
+                    this.addMessage.bind(this));
             WebSocketInstance.fetchMessages(
                 this.props.currentUser,
                 this.props.match.params.chatID
@@ -71,7 +81,7 @@ class Chat extends React.Component{
                     console.log('waiting for connection...');
                     component.waitForSocketConnection(callback);
                 }
-            }, 100);
+            }, 1);
 
     }
 
@@ -88,7 +98,7 @@ class Chat extends React.Component{
     sendMessageHandler = event =>{
         event.preventDefault();
         const messageObject = {
-            from: 'jhon',
+            from: `${this.props.user.username}`,
             content: this.state.message,
             chatId: this.props.match.params.chatID
         }
@@ -106,7 +116,7 @@ class Chat extends React.Component{
 
 
     renderMessages = (messages) => {
-        const currentUser = 'jhon';
+        const currentUser = `${this.props.user.username}`;
         return messages.map((message, i, arr) => (
             <li 
                 key={message.id}
@@ -150,12 +160,12 @@ class Chat extends React.Component{
         const messages = this.state.messages;
 
         return(
-            <div id="frame" className={chatStyle}>
+            <div id="frame">
             <Sidepanel />
             <div className="content">
                 <div className="contact-profile">
                     <img src={GeoLogo} alt="" />
-                    <p id="upper-group-name">groupname</p>
+                    <p id="upper-group-name">{roomnameText(this.props.match.params.chatID)}</p>
                     <div className="social-media">
                         <i className="fa fa-facebook" aria-hidden="true"></i>
                         <i className="fa fa-twitter" aria-hidden="true"></i>
@@ -195,4 +205,10 @@ class Chat extends React.Component{
     }
 }
 
-export default Chat;
+const mapStateToProps = (state) => { // get user in the redux store
+    return {
+      user: state.user,
+    };
+  };
+
+export default connect(mapStateToProps, {})(Chat);
