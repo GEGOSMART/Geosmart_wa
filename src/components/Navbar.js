@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import logoutUser from '../redux/actions/logoutUser';
-import WebSocketInstance from '../websocket';
 
 const outItemLeft = {
   marginLeft: '0.6em', marginRight: '1em', color: '#dfdada', textDecoration: 'none', marginTop: '0.8em',
@@ -25,10 +24,6 @@ class Navbar extends React.Component {
 
   componentDidMount() {
     console.log("Usuario "+JSON.stringify(this.props.user))
-  }
-
-  componentDidUpdate(){
-    WebSocketInstance.disconnect();
   }
 
   logOut(){

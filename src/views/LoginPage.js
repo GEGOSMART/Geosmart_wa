@@ -32,7 +32,7 @@ const LoginPage = ({ loginUser }) => {
     if(username.trim().length === 0 || password.trim().length === 0) {
       alert("All fields must be filled");
     } else { 
-      //loggear al usuario
+      //logear al usuario
       axios.post(URL, {
         query: `
           mutation {

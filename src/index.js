@@ -45,10 +45,11 @@ const Root = (
     <BrowserRouter>
     <Navbar />
       <Switch>
-        <Route path="/chat/:chatID/" component={Chat} />
+        
         <Route path="/home" component={Home} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
+        <AuthRoute path="/chat/:chatID/" component={Chat} />
         <AuthRoute path="/games" component={Games} />
         <AuthRoute path="/play/map" component={Mapgame} />
         <AuthRoute path="/play/flags" component={Questions} />

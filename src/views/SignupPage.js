@@ -61,7 +61,54 @@ const SignupPage = () => {
             }
           `
         });
-
+        
+        //Creates contact for chat application
+        const contact_object = await axios.post(URL, {
+            query: `
+            mutation {
+              createContact(contact: {
+                username: "${username.trim()}",
+                firstname: "${firstname.trim()}",
+                lastname: "${lastname.trim()}",
+                friends: []}) {
+                username
+              }
+            }
+            `
+          });
+          console.log("Contact " + contact_object.data.data.createContact.username + " created ")
+        //Get all participants in the general chat (provisional query, must have getChatById query! )
+        const participantes_object = await axios.post(URL, {
+            query: `
+            query{
+              getChatsByUsername(
+                username: "dummyuser"
+              ) {
+                participantes
+              }
+            }
+            `
+          });
+        //Retrieves all participants from this chat
+        var parts = participantes_object.data.data.getChatsByUsername[0].participantes;
+        //Adds the current user to the participants list
+        parts.push(contact_object.data.data.createContact.username)
+        //Updates the chat general to have the recently created user
+        const update_parts_object = await axios.post(URL, {
+          query: `
+          mutation{
+            updateChat(
+              id: "general",
+              chat: {id: "general", 
+              participantes: ${JSON.stringify(parts)},
+              }){
+              id
+            }
+          }
+          `
+        });
+        console.log("User joined chatroom " + update_parts_object.data.data.updateChat.id + " successfully ")
+        
         alert(message_object.data.data.createUser.message);
       } catch(err) {
         console.log(err);

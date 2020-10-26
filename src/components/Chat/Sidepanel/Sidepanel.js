@@ -5,6 +5,7 @@ import GeoLogo from '../../../assets/img/geosmart_logo.jpg'
 import UserImage from '../../../assets/img/user.png'
 import Contact from '../Contact'
 import { connect } from 'react-redux';
+import { URL } from "../../../redux/data/server";
 
 class Sidepanel extends React.Component {
 
@@ -16,22 +17,44 @@ class Sidepanel extends React.Component {
         this.getUserChats()
     }
 
-    getUserChats = () => { 
-        axios.defaults.headers = {
-            "Content-Type": "application/json",
-           // "Access-Control-Allow-Origin": "*"
-            //Authorization: `Token ${token}`
-        };
+    getUserChats = async () => { 
+        // axios.defaults.headers = {
+        //     "Content-Type": "application/json",
+        //    // "Access-Control-Allow-Origin": "*"
+        //     //Authorization: `Token ${token}`
+        // };
         console.log(this.props.user.username)
         //axios.get(`http://127.0.0.1:8000/api/chat?username=${this.props.user.username}`) //localhost
-        axios.get(`http://18.210.193.21:8000/api/chat?username=${this.props.user.username}`) //remote node
-        .then(res => {
-            this.setState({
-                chats: res.data
-            });
-        });
-    }
+        //axios.get(`http://18.210.193.21:8000/api/chat?username=${this.props.user.username}`) //remote node
+        try {
+        const chats_object = await axios.post(URL,{
+            query: `
+            query{
+                getChatsByUsername(
+                  username: "${this.props.user.username}"
+                ) {
+                  id
+                  participantes
+                  messages
+                }
+              }
+          `
+        })
 
+        this.setState({
+            chats: chats_object.data.data.getChatsByUsername
+        });
+        } catch(err) {
+            console.log(err);
+          }
+        // .then(res => {
+        //     this.setState({
+        //         chats: res.data.getChatsByUsername
+        //     });
+        // });
+
+    }
+    
     render(){
         const activeChats = this.state.chats.map(c => {
             return (
