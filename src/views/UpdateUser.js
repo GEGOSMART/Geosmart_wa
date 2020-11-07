@@ -13,7 +13,7 @@ import Input from '@material-ui/core/Input';
 import AddIcon from "@material-ui/icons/Publish";
 
 import updateUser from '../redux/actions/updateUser';
-import Copyright from '../components/Footer/Copyright';
+import Copyright from '../components/footer/Copyright';
 import Styles from '../assets/JSS/userManagement/Styles';
 import { URL } from "../redux/data/server";
 
