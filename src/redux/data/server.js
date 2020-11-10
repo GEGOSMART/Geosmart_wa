@@ -5,4 +5,4 @@ const port = '5230';
 //const host = '35.174.123.91';
 //const port = '5000';
 const entryPoint = 'graphql';
-export const URL = `http://${host}:${port}/${entryPoint}`;
+export const URL = `https://${host}:${port}/${entryPoint}`;
