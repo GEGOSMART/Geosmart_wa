@@ -9,6 +9,7 @@ function reducer(state = defaultState, action) {
     case loginUserType: {
       console.log(action.payload.user_object);
       localStorage.setItem('user', JSON.stringify(action.payload.user_object));
+      localStorage.setItem('token', JSON.stringify(action.payload.user_object.token));
       return state = action.payload.user_object; //se establece en el estado el objeto del user ya logeado
     }
     case updateUserType: {
@@ -19,6 +20,7 @@ function reducer(state = defaultState, action) {
     case logOutUserType:{
       console.log("Log out user");
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
       return state = null;
     }
     default:

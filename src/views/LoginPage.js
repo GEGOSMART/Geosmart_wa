@@ -16,10 +16,12 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 
-import Copyright from '../components/footer/Copyright';
+import Copyright from '../components/elfooter/Copyright';
 import Styles from '../assets/JSS/userManagement/Styles';
 import loginUser from '../redux/actions/loginUser';
 import { URL } from "../redux/data/server";
+
+import {checkToken} from "../redux/common/checkToken";
 
 const LoginPage = ({ loginUser }) => {
   const [username, setUsername] = useState('');
@@ -31,7 +33,7 @@ const LoginPage = ({ loginUser }) => {
     event.preventDefault();
     if(username.trim().length === 0 || password.trim().length === 0) {
       alert("All fields must be filled");
-    } else { 
+    } else {
       //logear al usuario
       axios.post(URL, {
         query: `
@@ -55,6 +57,7 @@ const LoginPage = ({ loginUser }) => {
       })
       .then(response => {
         if (response.status === 200) {
+          console.log("USUARIO: "+response.data.data.loginUser)
           loginUser(response.data.data.loginUser);
 
           history.push({pathname:"/games"})
