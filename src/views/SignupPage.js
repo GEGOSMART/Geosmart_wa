@@ -10,7 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
-import Copyright from '../components/footer/Copyright';
+import Copyright from '../components/elfooter/Copyright';
 import Styles from '../assets/JSS/userManagement/Styles';
 import { URL } from '../redux/data/server';
 
@@ -61,7 +61,7 @@ const SignupPage = () => {
             }
           `
         });
-        
+
         //Creates contact for chat application
         const contact_object = await axios.post(URL, {
             query: `
@@ -99,7 +99,7 @@ const SignupPage = () => {
           mutation{
             updateChat(
               id: "general",
-              chat: {id: "general", 
+              chat: {id: "general",
               participantes: ${JSON.stringify(parts)},
               }){
               id
@@ -108,7 +108,7 @@ const SignupPage = () => {
           `
         });
         console.log("User joined chatroom " + update_parts_object.data.data.updateChat.id + " successfully ")
-        
+
         alert(message_object.data.data.createUser.message);
       } catch(err) {
         console.log(err);

@@ -13,9 +13,10 @@ import Input from '@material-ui/core/Input';
 import AddIcon from "@material-ui/icons/Publish";
 
 import updateUser from '../redux/actions/updateUser';
-import Copyright from '../components/footer/Copyright';
+import Copyright from '../components/elfooter/Copyright';
 import Styles from '../assets/JSS/userManagement/Styles';
 import { URL } from "../redux/data/server";
+import {checkToken} from "../redux/common/checkToken";
 
 const UpdateUser = ({ user, updateUser }) => {
   const [firstname, setFirstname] = useState('');
@@ -74,7 +75,13 @@ const UpdateUser = ({ user, updateUser }) => {
 
           flag = flag.data[0].flag;
         }
-          
+
+        const isValid = await checkToken();
+        console.log(isValid)
+        if(isValid == false){
+           return;
+        }
+
         const user_object = await axios.post(URL, {
           query: `
             mutation {
@@ -111,10 +118,10 @@ const UpdateUser = ({ user, updateUser }) => {
         alert("Ups! some went wrong");
       }
     }
-    
+
     return;
   };
-    
+
   return (
     <div>
       <Container component="main" maxWidth="sm">
@@ -212,9 +219,9 @@ const UpdateUser = ({ user, updateUser }) => {
                   <AddIcon style={{marginRight: "2px"}}/> Upload photo
                 </Button>
               </label>
-              <progress value={uploadValue} max="100" style={{width: "60%", marginTop:".7em"}}/>  
+              <progress value={uploadValue} max="100" style={{width: "60%", marginTop:".7em"}}/>
             </div>
-            <Typography color="textSecondary" variant="subtitle1" style={{marginTop:'0.5em'}}>{fileName}</Typography> 
+            <Typography color="textSecondary" variant="subtitle1" style={{marginTop:'0.5em'}}>{fileName}</Typography>
 
             <Button
               fullWidth

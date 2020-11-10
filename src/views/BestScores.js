@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { connect } from "react-redux";
+import {checkToken} from "../redux/common/checkToken";
 
 import axios from 'axios';
 import { URL } from "../redux/data/server";
@@ -50,6 +51,11 @@ const BestScore = (props) => {
     }
 
     try {
+      const isValid = await checkToken();
+      console.log(isValid)
+      if(isValid == false){
+         return;
+      }
       const score_object = await axios.post(URL, {
         query: `
          query{

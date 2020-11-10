@@ -15,7 +15,7 @@ import {
 import Trofeo from '../assets/img/trofeo.jpg'
 import axios from 'axios';
 import { URL } from "../redux/data/server";
-
+import {checkToken} from "../redux/common/checkToken";
 
 const question_points = 100;
 const icons_urls = [
@@ -97,6 +97,11 @@ class Mapgame extends React.Component {
   }
 
   async getQuestions(){
+    const isValid = await checkToken();
+    console.log(isValid)
+    if(isValid == false){
+       return;
+    }
     const continent = 1 + Math.floor(Math.random() * 7);
     const questions = await axios.post(URL, {
     query: `

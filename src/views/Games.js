@@ -5,7 +5,7 @@ import GameCard from '../components/gameSelection/GameCard';
 import MapImage from '../assets/img/map.jpg'
 import FlagImage from '../assets/img/flag.png'
 import PlaceImage from '../assets/img/place.jpg'
-
+import {checkToken} from "../redux/common/checkToken";
 
 
 class Games extends React.Component {
@@ -20,6 +20,7 @@ class Games extends React.Component {
   }
 
   componentDidMount() {
+    checkToken();
     //console.log("Usuario "+JSON.stringify(this.props.user))
 
   }
@@ -44,6 +45,13 @@ class Games extends React.Component {
   }
 
   render() {
+    if(!this.props.user){
+      return(
+        <div style={{margin: "10em",fontSize: "20px", fontWeight: 600,textAlign: "center"}}>
+         La sesión ha expirado
+        </div>
+      )
+    }
     return (
       <div style={{width: '100%',backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)', minHeight: '100vh'}}>
         <div style={{display: 'flex'}}>
