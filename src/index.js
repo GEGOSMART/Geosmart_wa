@@ -16,7 +16,9 @@ import UpdateUser from './views/UpdateUser';
 import Mapgame from './views/Mapgame';
 import Navbar from './components/Navbar';
 import BestScores from  './views/BestScores';
-import MyRecords from './views/MyRecords'
+import MyRecords from './views/MyRecords';
+import Courses from './views/Courses'
+
 
 // redux store
 import store from  './redux/store';
@@ -58,6 +60,7 @@ const Root = (
         <AuthRoute path="/profile" component={Profile} />
         <AuthRoute path="/update-user" component={UpdateUser} />
         <AuthRoute path="/myrecords" component={MyRecords} />
+        <AuthRoute path="/courses" component={Courses} />
         <Redirect from="/" to="home" />
       </Switch>
     </BrowserRouter>
