@@ -8,5 +8,7 @@ COPY ./package.json ./
 RUN npm install
 COPY ./ ./
 
+RUN source .env
+
 # Default command
 CMD ["npm", "run", "start"]

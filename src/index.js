@@ -59,7 +59,7 @@ const Root = (
         <AuthRoute path="/profile" component={Profile} />
         <AuthRoute path="/update-user" component={UpdateUser} />
         <AuthRoute path="/myrecords" component={MyRecords} />
-        <Route path="/courses" component={Courses} />
+        <AuthRoute path="/courses" component={Courses} />
         <Redirect from="/" to="home" />
       </Switch>
     </BrowserRouter>
