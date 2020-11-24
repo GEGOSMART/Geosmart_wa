@@ -50,7 +50,7 @@ class Navbar extends React.Component {
           <Link className="navbtn" to="/profile">Profile</Link>
           <Link className="navbtn" to="/update-user">Update info</Link>
           <Link className="navbtn" to="/chat/lobby" replace >Chat</Link>
-          <Link className="navbtn" to="/courses" replace >Courses SS X-1</Link>
+          <Link className="navbtn" to="/courses" replace >Learntic courses</Link>
 
           <Link style={{marginLeft: 'auto', marginRight: '1em', color: '#e91e63', textDecoration: 'none', marginTop: '0.8em',
                         fontWeight: 600, fontSize: '26px', cursor: 'pointer'}}

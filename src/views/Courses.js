@@ -9,7 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { connect } from "react-redux";
 import {checkToken} from "../redux/common/checkToken";
-
+import Typography from '@material-ui/core/Typography';
+import LearnticLogo from '../assets/img/courses/learntic.png' 
 import axios from 'axios';
 
 const link = 'http://54.198.239.79:3001/interface/all-courses';
@@ -22,6 +23,9 @@ const StyledTableCell = withStyles((theme) => ({
   body: {
     fontSize: 14,
   },
+  table: {
+    minWidth: 650,
+  }
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
@@ -33,8 +37,12 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
+  root: {
+    width: '100%',
+  },
+  container: {
+    maxHeight: 440,
+    marginTop:'20px'
   },
 });
 
@@ -46,14 +54,13 @@ const Courses = (props) => {
   async function getCourses() {
     try {
       const isValid = await checkToken();
-      console.log(isValid)
-      if(isValid == false){
+      if(isValid === false){
          return;
       }
       const course_object = await axios.get(link)
-      console.log(course_object)
+      console.log(course_object.data.data[0].split(', '))
       if (course_object.status === 200) {
-        return setRows(course_object.data.data);
+        return setRows(course_object.data.data[0].split(', '));
       } else {
         alert("Ups! Something went wrong");
       }
@@ -67,28 +74,33 @@ const Courses = (props) => {
     console.log(rows);
   }, [] );
 
-  var i = 0;
+  var i = 1;
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
+    <div className={classes.root}>
+      <div>
+        <Typography variant="h3" style={{display: 'flex', justifyContent: 'center', padding: 15}}>
+          <img src={LearnticLogo} alt="LearnticLogo" width="100" height="100"/><div style={{marginTop: '1em'}}>Courses</div>
+        </Typography>
+      </div>
+      <Table>
         <TableHead>
           <TableRow>
-            <StyledTableCell allign="center">Courses</StyledTableCell>
+            <StyledTableCell aling="center">ID</StyledTableCell>
+            <StyledTableCell align="left">Course</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows ? rows.map(element =>
             <StyledTableRow key= {i}>
             <StyledTableCell component="th" scope="row">
-              {element.data[i]}
+              {i++}
             </StyledTableCell>
-
-
+            <StyledTableCell align="left">{element}</StyledTableCell>
           </StyledTableRow>) : null}
         </TableBody>
       </Table>
-    </TableContainer>
+    </div>
   );
 }
 

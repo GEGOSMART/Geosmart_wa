@@ -47,7 +47,6 @@ const Root = (
     <BrowserRouter>
     <Navbar />
       <Switch>
-        
         <Route path="/home" component={Home} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
@@ -60,7 +59,7 @@ const Root = (
         <AuthRoute path="/profile" component={Profile} />
         <AuthRoute path="/update-user" component={UpdateUser} />
         <AuthRoute path="/myrecords" component={MyRecords} />
-        <AuthRoute path="/courses" component={Courses} />
+        <Route path="/courses" component={Courses} />
         <Redirect from="/" to="home" />
       </Switch>
     </BrowserRouter>

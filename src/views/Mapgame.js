@@ -80,9 +80,6 @@ const GoogleMapComp = withGoogleMap(props => {
      </GoogleMap>
    )});
 
-
-
-
 class Mapgame extends React.Component {
   constructor(props) {
     super(props);
